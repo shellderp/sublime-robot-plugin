@@ -6,13 +6,30 @@ def get_keyword_at_pos(line, col):
     if len(line) == 0:
         return None
 
-    # first, look back until we find 2 spaces in a row, or reach the beginning
-    i = 0
-    for i in range(col, 0, -1):
-        print line[i-1]
-    
-    for i in range(col, len(line), 1):
-        print line[i]
+    # first look back until we find 2 spaces in a row, or reach the beginning
+    i = col - 1
+    while i > 0:
+        print "lookbehind at", i, "=", line[i]
+        if line[i - 1] == "\t" or (line[i - 1] == " " and len(line) > i and line[i] == " "):
+            i = i + 1
+            break
+        i -= 1
+
+    begin = i
+
+    # now look forward or until the end
+    i = col # previous included line[col]
+    for i in range(col + 1, len(line), 1):
+        print "lookahead at", i, "=", line[i]
+        if line[i] == "\t" or (line[i] == " " and len(line) > i and line[i + 1] == " "):
+            i = i - 1
+            break
+    end = i
+    print begin, end
+    keyword = line[begin:end]
+    if len(keyword) == 0:
+        return None
+    return line[begin:end]
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -36,11 +53,8 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             return
 
         keyword = get_keyword_at_pos(line, col)
-
-        #resources = view.find_all("^Resource\s+(.+)$") # todo: can resource start with a space? probably..
-        #for r in resources:
-            #print view.substr(r)
-        #print os.path.normpath(os.path.join(path, '../lolrobot.txt'))
+        print keyword
+        
         #window.open_file("%s:%d" % (resource_path, 10), sublime.ENCODED_POSITION)
 
 
