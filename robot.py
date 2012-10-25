@@ -1,6 +1,7 @@
 import sublime, sublime_plugin
 import os
 
+plugin_dir = os.getcwd()
 
 def get_keyword_at_pos(line, col):
     if len(line) == 0:
@@ -62,5 +63,5 @@ class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def on_load(self, view):
         if (view.file_name().endswith('.txt') and
             view.find('\*{3}\s*settings\s*\*{3}', 0, sublime.IGNORECASE) != None):
-
-            view.set_syntax_file(os.path.join(sublime.packages_path(), "sublime-robot-plugin/robot.tmLanguage"))
+        
+            view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
