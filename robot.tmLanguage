@@ -88,6 +88,12 @@
             <key>name</key>
             <string>keyword.control.robot</string>
         </dict>
+        <dict>
+            <key>match</key>
+            <string>\s*(Given|And|Then|When)</string>
+            <key>name</key>
+            <string>keyword.control.robot</string>
+        </dict>
     </array>
     <key>scopeName</key>
     <string>text.robot</string>
