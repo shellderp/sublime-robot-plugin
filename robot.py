@@ -1,37 +1,9 @@
 import sublime, sublime_plugin
 import os
+from keyword_parse import get_keyword_at_pos
 
 # only available when the plugin is being loaded
 plugin_dir = os.getcwd()
-
-def get_keyword_at_pos(line, col):
-    if len(line) == 0:
-        return None
-
-    # first look back until we find 2 spaces in a row, or reach the beginning
-    i = col - 1
-    while i > 0:
-        print "lookbehind at", i, "=", line[i]
-        if line[i - 1] == "\t" or (line[i - 1] == " " and len(line) > i and line[i] == " "):
-            i = i + 1
-            break
-        i -= 1
-
-    begin = i
-
-    # now look forward or until the end
-    i = col # previous included line[col]
-    for i in range(col + 1, len(line), 1):
-        print "lookahead at", i, "=", line[i]
-        if line[i] == "\t" or (line[i] == " " and len(line) > i and line[i + 1] == " "):
-            i = i - 1
-            break
-    end = i
-    print begin, end
-    keyword = line[begin:end]
-    if len(keyword) == 0:
-        return None
-    return line[begin:end]
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
