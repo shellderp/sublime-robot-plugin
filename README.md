@@ -6,7 +6,7 @@ Planned features
 --------
 
 * Basic syntax highlighting for Robot txt files, plus automatic detection/activation
-* ctrl+alt+enter or ctrl+alt+click to:
+* alt+enter or alt+click to:
     * go to resource file at caret
     * go to keyword at caret
     * find caller(s) of keyword declared at caret
