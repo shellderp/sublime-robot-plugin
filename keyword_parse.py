@@ -7,13 +7,14 @@ def get_keyword_at_pos(line, col):
         return None
 
     # between spaces
-    if (col >= length or line[col] == ' ') and (col == 0 or line[col-1] == ' '):
+    if ((col >= length or line[col] == ' ' or line[col] == "\t")
+    and (col == 0 or line[col-1] == ' ' or line[col-1] == "\t")):
         return None
 
     # first look back until we find 2 spaces in a row, or reach the beginning
     i = col - 1
     while i >= 0:
-        if line[i - 1] == "\t" or (line[i - 1] == ' ' and line[i] == ' '):
+        if line[i] == "\t" or (line[i - 1] == ' ' and line[i] == ' '):
             break
         i -= 1
     begin = i + 1
@@ -60,6 +61,9 @@ class TestGetKeywordAtPos(unittest.TestCase):
         self.assertEqual(get_keyword_at_pos('This Is A Keyword', 3), 'This Is A Keyword')
         self.assertEqual(get_keyword_at_pos('This Is A Keyword', 17), 'This Is A Keyword')
         self.assertEqual(get_keyword_at_pos('Run    Some Keyword', 11), 'Some Keyword')
+
+    def test_tab_char(self):
+        self.assertEqual(get_keyword_at_pos('Run\tSome Keyword', 5), 'Some Keyword')
 
 if __name__ == '__main__':
     unittest.main()
