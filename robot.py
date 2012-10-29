@@ -1,9 +1,39 @@
 import sublime, sublime_plugin
-import os
+import os, functools
 from keyword_parse import get_keyword_at_pos
+from robot.parsing import *
 
 # only available when the plugin is being loaded
 plugin_dir = os.getcwd()
+
+keywords = {}
+
+# working_dir is the directory that contains the file to be parsed
+def parse_file(working_dir, line_gen):
+
+    for line in line_gen():
+        stripped = line.strip()
+        if stripped.startswith('Resource'):
+            resource = line[line.find('Resource') + 8:].strip()
+            resource_path = os.path.join(working_dir, resource)
+            new_working_dir, __file_path = os.path.split(resource_path)
+            parse_file(new_working_dir, functools.partial(file_line_gen, resource_path))
+        elif stripped.startswith('*'):
+            print 'mode change:', stripped
+
+
+def view_line_gen(view):
+    regions = view.split_by_newlines(sublime.Region(0, view.size()))
+    for region in regions:
+        yield view.substr(region)
+
+def file_line_gen(file_path):
+    try:
+        with open(file_path) as f:
+            for line in f:
+                yield line
+    except IOError as e:
+        print 'Opening file failed:', e
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -30,8 +60,19 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             return
 
         keyword = get_keyword_at_pos(line, col)
-        print keyword
         
+        if keyword is None:
+            return
+
+        print 'searching for keyword:', keyword
+
+        init_txt_path = os.path.join(path, '__init__.txt')
+        if os.path.exists(init_txt_path):
+            parse_file(path, functools.partial(file_line_gen, init_txt_path))
+
+        # we have the keyword we're going to look for, now parse the file
+        parse_file(path, functools.partial(view_line_gen, view))
+
         #window.open_file("%s:%d" % (resource_path, 10), sublime.ENCODED_POSITION)
 
 
