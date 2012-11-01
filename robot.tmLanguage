@@ -34,7 +34,7 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>(\t|\s{4})[A-Z_][A-Z0-9_]*(\t|\s{4}|$)</string>
+            <string>(\t|\s{2})[A-Z_][A-Z0-9_]*(\t|\s{2}|$)</string>
             <key>name</key>
             <string>constant.numeric</string>
             <key>comment</key>
@@ -90,7 +90,7 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>\s*(Given|And|Then|When)</string>
+            <string>^\s*(Given|And|Then|When)</string>
             <key>name</key>
             <string>keyword.control.robot</string>
         </dict>
