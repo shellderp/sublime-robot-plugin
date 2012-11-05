@@ -9,6 +9,7 @@ if pyd_path not in sys.path:
 import sublime, sublime_plugin
 from keyword_parse import get_keyword_at_pos
 from robot.parsing import TestCaseFile, ResourceFile
+from robot.errors import DataError
 from string_populator import FromStringPopulator
 import inspect
 
@@ -17,13 +18,17 @@ plugin_dir = os.getcwd()
 
 keywords = {}
 
-# suite is an already loaded suite
+# suite is an already loaded robot file
 def parse_file(suite):
     for setting in suite.setting_table:
         if hasattr(setting, 'type'):
             if setting.type == 'Resource':
-                resource_path = os.path.join(setting.directory, setting.name)
-                parse_file(ResourceFile(source=resource_path).populate())
+                resource_path = os.path.normpath(os.path.join(setting.directory, setting.name))
+                try:
+                    parse_file(ResourceFile(source=resource_path).populate())
+                except DataError as de:
+                    print 'error reading resource:', resource_path
+                    print de
 
     ### not concerned with testcases ATM
     # for test in suite.testcase_table:
@@ -75,7 +80,7 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         lines = [view.substr(region).encode('ascii', 'replace') + '\n' for region in regions]
         suite = TestCaseFile(source=file_path)
         FromStringPopulator(suite, lines).populate(suite.source)
-        suite._validate()
+        #suite._validate()
 
         keywords.clear()
         parse_file(suite)
@@ -85,11 +90,9 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
                     substr = keyword[len(bdd_prefix):]
                     if keywords.has_key(substr):
                         source_path = keywords[substr].source
-                        print source_path
                         window.open_file("%s" % (source_path))
                         return
             source_path = keywords[keyword].source
-            print source_path
             window.open_file("%s" % (source_path))
         except:
             print 'keyword not found:', keyword
