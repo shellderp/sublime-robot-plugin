@@ -1,0 +1,93 @@
+/* Containers */
+.suite, .test, .errors {
+    border: 1px solid gray;
+    padding: 0.3em;
+    margin: 0.2em 0;
+}
+.test {
+    border-style: dashed;
+}
+.errors, .metadata, .messages {
+    width: 100%;
+}
+.keyword, .metadata, .messages {
+    padding-left: 1.2em;
+}
+/* Suite, test and kw headers */
+.elementheader {
+    border: 1px solid white;
+    border-radius: 2px;
+    padding: 0.2em 0;
+}
+.elementheader:hover {
+    cursor: pointer;
+    background: #F4F4FF;
+    border: 1px solid #D3D3D3;
+}
+.foldingbutton {
+    float: left;
+    height: 0.9em;
+    width: 0.9em;
+    line-height: 0.9em;
+    text-align: center;
+    font-size: 0.7em;
+    margin: 0.3em 0.5em;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+.foldingbutton:hover {
+    background: yellow;
+}
+.name {
+    font-weight: bold;
+}
+.expandall {
+    float: right;
+    margin: 0.2em 0.5em;
+    font-size: 0.8em;
+}
+/* Messages and errors */
+.messages {
+    font-family: monospace;
+    font-size: 1.2em;
+}
+.messages td, .errors td {
+    vertical-align: top;
+}
+.time {
+    width: 6em;
+}
+.error_time {
+    width: 10em;
+    white-space: nowrap;
+}
+.level {
+    width: 5em;
+    text-align: center;
+}
+/* Message tables - these MUST NOT be combined together because otherwise
+   dynamically altering them based on visible log level is not possible. */
+.trace_message {
+    display: table;
+}
+.debug_message {
+    display: table;
+}
+/* Metadata */
+.metadata th {
+    width: 13em;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+    padding-right: 0.5em;
+}
+.metadata td {
+    vertical-align: top;
+}
+.keyword_metadata {
+    font-size: 0.9em;
+}
+/* Custom styles for statistics */
+#total_stats tr:hover, #tag_stats tr:hover {
+    cursor: default;
+}

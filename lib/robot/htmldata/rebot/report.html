@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="Generator" content="">
+<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
+<link rel="stylesheet" type="text/css" href="common.css" media="all">
+<link rel="stylesheet" type="text/css" href="report.css" media="all">
+<link rel="stylesheet" type="text/css" href="print.css" media="print">
+<link rel="stylesheet" type="text/css" href="../common/js_disabled.css" media="all">
+<link rel="stylesheet" type="text/css" href="../common/doc_formatting.css" media="all">
+<script type="text/javascript" src="../lib/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="../lib/jsxcompressor.js"></script>
+<script type="text/javascript" src="fileloading.js"></script>
+<script type="text/javascript" src="model.js"></script>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="testdata.js"></script>
+<script type="text/javascript" src="view.js"></script>
+<!-- JS MODEL --><script type="text/javascript" src="../testdata/data.js"></script>
+<title></title>
+</head>
+<body>
+<div id="javascript_disabled">
+  <h1>Opening Robot Framework report failed</h1>
+  <ul>
+    <li>Verify that you have <b>JavaScript enabled</b> in your browser.</li>
+    <li>Make sure you are using a <b>modern enough browser</b>. Firefox 3.5, IE 8, or equivalent is required, newer browsers are recommended.</li>
+    <li>Check are there messages in your browser's <b>JavaScript error log</b>. Please report the problem if you suspect you have encountered a bug.</li>
+  </ul>
+</div>
+<script type="text/javascript">removeJavaScriptDisabledWarning();</script>
+
+<div id="header"></div>
+<div id="statistics_container"></div>
+<div id="test_details_container"></div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    try {
+        var topsuite = window.testdata.suite();
+    } catch (e) {
+        addJavaScriptDisabledWarning();
+        return;
+    }
+    setBackground(topsuite);
+    initLayout(topsuite.name, 'Report');
+    addSummary(topsuite);
+    addStatistics();
+    addDetails();
+    window.prevLocationHash = '';
+    window.onhashchange = showDetailsByHash;
+});
+
+function setBackground(topsuite) {
+    if (topsuite.criticalFailed)
+        $("body").css("background-color", window.settings.background.fail);
+    else if (topsuite.totalFailed)
+        $("body").css("background-color", window.settings.background.nonCriticalFail);
+    else
+        $("body").css("background-color", window.settings.background.pass);
+}
+
+function addSummary(topsuite) {
+    var opts = {logURL: window.settings.logURL};
+    $.tmpl('summaryTableTemplate', topsuite, opts).insertAfter($('#header'));
+}
+
+function addDetails() {
+    $.tablesorter.addParser({
+        id: 'criticality',
+        type: 'numeric',
+        is: function(s) {
+            return false;  // do not auto-detect
+        },
+        format: function(s) {
+            return s === 'yes' ? 0 : 1;
+        }
+    });
+    if (window.location.hash)
+        showDetailsByHash();
+    else
+        renderTotalSelector();
+}
+
+function showDetailsByHash() {
+    if (window.location.hash == window.prevLocationHash)
+        return;
+    var hashParts = decodeURI(window.location.hash.substring(1)).split('_');
+    var key = hashParts.shift();
+    var arg = hashParts.join('_');
+    var action = {'totals': showTotalSelector,
+                  'tags':   showTagSelector,
+                  'suites': showSuiteSelector,
+                  'total':  totalDetailSelected,
+                  'tag':    tagDetailSelected,
+                  'suite':  suiteDetailSelected}[key];
+    if (action)
+        action(arg);
+}
+
+function showTotalSelector() {
+    renderTotalSelector();
+    scrollToSelector('totals');
+}
+
+function showTagSelector() {
+    renderTagSelector();
+    scrollToSelector('tags');
+}
+
+function showSuiteSelector() {
+    renderSuiteSelector();
+    scrollToSelector('suites');
+}
+
+function totalDetailSelected(name) {
+    if (!name) return;
+    renderTotalSelector(name);
+    renderTotalDetails(name);
+    updatePrintSelector(name == 'critical' ? 'Critical Tests' : 'All Tests');
+    scrollToSelector('total_'+name);
+}
+
+function renderTotalSelector(name) {
+    var args = {linkTarget: 'total_'+name, totalTabStatus: 'detail_tab_selected'};
+    renderSelector(args, 'totalDetailsSelectorTemplate', {selected: name});
+}
+
+function renderTotalDetails(name) {
+    var index = (name == 'critical') ? 0 : 1;
+    var stat = window.testdata.statistics().total[index];
+    var tests = getTotalTests(name);
+    stat.totalTime = calculateTotalTime(tests);
+    $.tmpl('tagOrTotalDetailsTemplate', stat).appendTo('#details_header');
+    drawTestDetailsTable(tests, true);
+}
+
+function updatePrintSelector(name, info) {
+    if (info)
+        name += ' (' + info + ')';
+    $('#print_selector').html(name);
+}
+
+function tagDetailSelected(name) {
+    if (!name) return;
+    renderTagSelector(name);
+    var tag = util.filter(window.testdata.statistics().tag, function (tag) {
+        return tag.label == name;
+    })[0];
+    renderTagDetails(tag);
+    updatePrintSelector(name, tag.info);
+    scrollToSelector('tag_'+name);
+}
+
+function renderTagSelector(tagName) {
+    var args = {linkTarget: 'tag_'+tagName, tagTabStatus: 'detail_tab_selected'};
+    var tagstats = {tags: window.testdata.statistics().tag, selected: tagName};
+    renderSelector(args, 'tagDetailsSelectorTemplate', tagstats);
+}
+
+function renderTagDetails(tag) {
+    var tests = getTestsHavingTag(tag);
+    if (tag)
+        tag.totalTime = calculateTotalTime(tests);
+    $.tmpl('tagOrTotalDetailsTemplate', tag).appendTo('#details_header');
+    drawTestDetailsTable(tests, true);
+}
+
+function suiteDetailSelected(id) {
+    if (!id) return;
+    renderSuiteSelector(id);
+    renderSuiteDetails(id);
+    scrollToSelector('suite_'+id);
+}
+
+function renderSuiteSelector(id) {
+    var args = {linkTarget: 'suite_'+id, suiteTabStatus: 'detail_tab_selected'};
+    var stats = {suites: window.testdata.statistics().suite,
+                 selected: id};
+    renderSelector(args, 'suiteDetailsSelectorTemplate', stats);
+}
+
+function renderSuiteDetails(id) {
+    testdata.findPathTo(id, function () {
+        var suite = testdata.find(id);
+        var opts = {logURL: window.settings.logURL};
+        $.tmpl('suiteDetailsTemplate', suite, opts).appendTo('#details_header');
+        drawTestDetailsTable(suite.allTests(), false);
+        updatePrintSelector(suite.fullName);
+    });
+}
+
+function scrollToSelector(anchor) {
+    $('#test_details_container').css('min-height', $(window).height());
+    window.prevLocationHash = "#"+anchor;
+    window.location.hash = anchor;
+}
+
+function renderSelector(args, template, stats) {
+    window.elementsToRender = [];
+    $('#test_details_container').empty();
+    $.tmpl('detailsHeaderTemplate', args).appendTo('#test_details_container');
+    $.tmpl(template, stats).appendTo('#test_details_container');
+}
+
+function drawTestDetailsTable(tests, sortByStatus) {
+    $.tmpl('testDetailsTableTemplate').appendTo('#test_details_container');
+    window.elementsToRender = tests;
+    renderTestDetails(sortByStatus);
+}
+
+function sortByStatus(t1, t2) {
+    if (t1.status != t2.status)
+        return t1.status == 'FAIL' ? -1 : 1;
+    if (t1.isCritical != t2.isCritical)
+        return t1.isCritical ? -1 : 1;
+    return t1.fullName < t2.fullName ? -1 : 1;
+}
+
+function getTestsHavingTag(tag) {
+    if (!tag)
+        return [];
+    return window.testdata.suite().searchTestsByTag(tag).sort(sortByStatus);
+}
+
+function getTotalTests(name) {
+    if (name == 'critical')
+        return window.testdata.suite().criticalTests().sort(sortByStatus);
+    return window.testdata.suite().allTests().sort(sortByStatus);
+}
+
+function calculateTotalTime(tests) {
+    var totaltime = 0;
+    $.map(tests, function (test) {
+        totaltime += test.times.elapsedMillis;
+    });
+    return util.formatElapsed(totaltime);
+}
+
+function renderTestDetails(sortByStatus) {
+    if (!window.elementsToRender.length)
+        return;
+    var elements = popUpTo(window.elementsToRender, 10);
+    $.tmpl('testDetailsTableRowTemplate', elements,
+           {logURL: window.settings.logURL}).appendTo('#test_details > tbody');
+    if (window.elementsToRender.length)
+        setTimeout(function () {renderTestDetails(sortByStatus);}, 0);
+    else
+        configureTableSorter(sortByStatus);
+}
+
+function configureTableSorter(sortByStatus) {
+    var config = {headers: {3: {sorter: 'criticality'},
+                            6: {sortInitialOrder: 'desc'}}};
+    if (sortByStatus)
+        config['sortList'] = [[4, 0], [3, 0]];
+    $("#test_details").tablesorter(config);
+}
+
+function popUpTo(list, upTo) {
+    var result = [];
+    while (list.length > 0 && result.length < upTo)
+        result.push(list.shift());
+    return result;
+}
+</script>
+
+<script type="text/x-jquery-tmpl" id="summaryTableTemplate">
+  <h2>Summary Information</h2>
+  <table class="details">
+    <tr>
+      <th>Status:</th>
+      {{if criticalFailed}}
+      <td><a href="#total_critical" onclick="totalDetailSelected('critical')"
+             class="fail">${criticalFailed} critical test{{if criticalFailed != 1}}s{{/if}} failed</a></td>
+      {{else totalFailed}}
+      <td><a href="#total_critical" onclick="totalDetailSelected('critical')"
+             class="pass">All critical tests passed</a></td>
+      {{else}}
+      <td><a href="#total_all" onclick="totalDetailSelected('all')"
+             class="pass">All tests passed</a></td>
+      {{/if}}
+    </tr>
+    {{if doc()}}
+    <tr>
+      <th>Documentation:</th>
+      <td class="doc">{{html doc()}}</td>
+    </tr>
+    {{/if}}
+    {{each metadata}}
+    <tr>
+      <th>{{html $value[0]}}:</th>
+      <td class="doc">{{html $value[1]}}</td>
+    </tr>
+    {{/each}}
+    {{if times.startTime != 'N/A'}}
+    <tr>
+      <th>Start Time:</th>
+      <td>${times.startTime}</td>
+    </tr>
+    {{/if}}
+    {{if times.endTime != 'N/A'}}
+    <tr>
+      <th>End Time:</th>
+      <td>${times.endTime}</td>
+    </tr>
+    {{/if}}
+    <tr>
+      <th>Elapsed Time:</th>
+      <td>${times.elapsedTime}</td>
+    </tr>
+    {{if $item.logURL}}
+    <tr>
+      <th>Log File:</th>
+      <td><a href="${$item.logURL}">${$item.logURL}</a></td>
+    </tr>
+    {{/if}}
+  </table>
+</script>
+
+<script type="text/x-jquery-tmpl" id="totalStatisticsRowTemplate">
+  <tr onclick="totalDetailSelected('${type}')" class="row-${$item.index}">
+    <td class="stats_col_name">
+      <div class="stat_name">
+        <a href="#total_${type}">{{html label}}</a>
+      </div>
+    </td>
+    {{tmpl($data) 'stat_columns'}}
+  </tr>
+</script>
+
+<script type="text/x-jquery-tmpl" id="tagStatisticsRowTemplate">
+  <tr onclick="tagDetailSelected('${label}');" class="row-${$item.index}">
+    <td class="stats_col_name">
+      <div class="stat_name">
+        <a href="#tag_${label}"
+           title="{{html doc}}">{{html label}}</a>
+        {{if info}}(${info}){{/if}}
+      </div>
+      <div class="tag_links">
+        {{each links}}
+        <span>[<a href="{{html $value.url}}" onclick="stopPropagation(event);"
+                  title="{{html $value.url}}">{{html $value.title}}</a>]</span>
+        {{/each}}
+      </div>
+    </td>
+    {{tmpl($data) 'stat_columns'}}
+  </tr>
+</script>
+
+<script type="text/x-jquery-tmpl" id="suiteStatisticsRowTemplate">
+  <tr onclick="suiteDetailSelected('${id}');" class="row-${$item.index}">
+    <td class="stats_col_name">
+      <div class="stat_name">
+        <a href="#suite_${id}"
+           title="{{html label}}"><span class="parent_name">{{html formatParentName}}</span>{{html name}}</a>
+      </div>
+    </td>
+    {{tmpl($data) 'stat_columns'}}
+  </tr>
+</script>
+
+<script type="text/x-jquery-tmpl" id="detailsHeaderTemplate">
+  <h2 id="${linkTarget}">Test Details</h2>
+  <ul id="detail_tabs">
+    <li class="${totalTabStatus} detail_tab">
+      <a href="#totals" onclick="renderTotalSelector();">Totals</a>
+    </li>
+    <li class="${tagTabStatus} detail_tab">
+      <a href="#tags" onclick="renderTagSelector();">Tags</a>
+    </li>
+    <li class="${suiteTabStatus} detail_tab">
+      <a href="#suites" onclick="renderSuiteSelector();">Suites</a>
+    </li>
+  </ul>
+</script>
+
+<script  type="text/x-jquery-tmpl" id="totalDetailsSelectorTemplate">
+  <table class="details" id="details_header">
+    <tr id="selector">
+      <th>Type:</th>
+      <td id="normal_selector">
+        <input id="radio_critical" type="radio" name="totals_radio"
+               onclick="totalDetailSelected('critical');"
+               {{if selected == 'critical'}}checked="checked"{{/if}}>
+        <label for="radio_critical">Critical Tests</label><br>
+        <input id="radio_all" type="radio" name="totals_radio"
+               onclick="totalDetailSelected('all');"
+               {{if selected == 'all'}}checked="checked"{{/if}}>
+        <label for="radio_all">All Tests</label>
+      </td>
+      <td id="print_selector"></td>
+    </tr>
+  </table>
+</script>
+
+<script  type="text/x-jquery-tmpl" id="tagDetailsSelectorTemplate">
+  <table class="details" id="details_header">
+    <tr id="selector">
+      <th>Name:</th>
+      <td id="normal_selector">
+        <select id="tag_detail_selector"
+                onchange="tagDetailSelected(this.options[this.selectedIndex].value);">
+          <option value="">Select tag...</option>
+          {{each tags}}
+          <option value="${$value.label}"
+                  {{if $value.label == selected}}selected="selected"{{/if}}>
+            {{html $value.label}} {{if $value.info}}(${$value.info}){{/if}}
+          </option>
+          {{/each}}
+        </select>
+      </td>
+      <td id="print_selector"></td>
+    </tr>
+  </table>
+</script>
+
+<script  type="text/x-jquery-tmpl" id="suiteDetailsSelectorTemplate">
+  <table class="details" id="details_header">
+    <tr id="selector">
+      <th>Name:</th>
+      <td id="normal_selector">
+        <select id="suite_detail_selector"
+                onchange="suiteDetailSelected(this.options[this.selectedIndex].value);">
+          <option value="">Select suite...</option>
+          {{each suites}}
+          <option value="${$value.id}"
+                  {{if $value.id == selected}}selected="selected"{{/if}}>
+            {{html $value.label}}
+          </option>
+          {{/each}}
+        </select>
+      </td>
+      <td id="print_selector"></td>
+    </tr>
+  </table>
+</script>
+
+<script type="text/x-jquery-tmpl" id="tagOrTotalDetailsTemplate">
+  <tr>
+      <th>Status:</th>
+      <td>${total} total, ${pass} passed, {{if fail}}<span class="fail">${fail} failed</span>{{else}}<span class="pass">0 failed</span>{{/if}}</td>
+  </tr>
+  {{if doc}}
+  <tr>
+    <th>Documentation:</th>
+    <td>{{html doc}}</td>
+  </tr>
+  {{/if}}
+  {{if combined}}
+  <tr>
+    <th>Pattern:</th>
+    <td>{{html combined}}</td>
+  </tr>
+  {{/if}}
+  {{if links}}{{if links.length}}
+  <tr>
+    <th>Links:</th>
+    <td>{{each links}}<a href="{{html $value.url}}"
+                         title="{{html $value.url}}">{{html $value.title}}</a> &nbsp; {{/each}}</td>
+  </tr>
+  {{/if}}{{/if}}
+  <tr>
+    <th>Total Time:</th>
+    <td>${totalTime}</td>
+  </tr>
+</script>
+
+<script type="text/x-jquery-tmpl" id="suiteDetailsTemplate">
+  <tr>
+    <th>Status:</th>
+    <td>{{tmpl($data) 'suiteStatusMessageTemplate'}}</td>
+  </tr>
+  {{if doc()}}
+  <tr>
+    <th>Documentation:</th>
+    <td class="doc">{{html doc()}}</td>
+  </tr>
+  {{/if}}
+  {{each metadata}}
+  <tr>
+    <th>{{html $value[0]}}:</th>
+    <td class="doc">{{html $value[1]}}</td>
+  </tr>
+  {{/each}}
+  {{if message()}}
+  <tr>
+    <th>Message:</th>
+    <td class="message">{{html message()}}</td>
+  </tr>
+  {{/if}}
+  <tr>
+    <th>Start / End Time:</th>
+    <td>${times.startTime} / ${times.endTime}</td>
+  </tr>
+  <tr>
+    <th>Elapsed Time:</th>
+    <td>${times.elapsedTime}</td>
+  </tr>
+  {{if $item.logURL}}
+  <tr>
+    <th>Log File:</th>
+    <td><a href="${$item.logURL}#${id}"
+           title="{{html fullName}}">${$item.logURL}#${id}</a></td>
+  </tr>
+  {{/if}}
+</script>
+
+<script type="text/x-jquery-tmpl" id="testDetailsTableTemplate">
+  <table id="test_details">
+    <thead>
+        <tr>
+          <th class="details_col_name">Name</th>
+          <th class="details_col_doc">Documentation</th>
+          <th class="details_col_tags">Tags</th>
+          <th class="details_col_crit narrow">Crit.</th>
+          <th class="details_col_status narrow">Status</th>
+          <th class="details_col_msg">Message</th>
+          <th class="details_col_elapsed">Elapsed</th>
+          <th class="details_col_times">Start / End</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</script>
+
+<script type="text/x-jquery-tmpl" id="testDetailsTableRowTemplate">
+  {{if $item.logURL}}
+  <tr onclick="location = '${$item.logURL}#${id}'" style="cursor: pointer">
+    <td class="details_col_name">
+        <a href="${$item.logURL}#${id}"
+           title="{{html fullName}}"><span class="parent_name">{{html formatParentName}}</span>{{html name}}</a>
+    </td>
+  {{else}}
+  <tr>
+    <td class="details_col_name"><span class="parent_name">{{html formatParentName}}</span>{{html name}}</td>
+  {{/if}}
+    <td class="details_col_doc doc">{{html doc()}}</td>
+    <td class="details_col_tags">{{html tags.join(', ')}}</td>
+    <td class="details_col_crit">{{if isCritical}}yes{{else}}no{{/if}}</td>
+    <td class="details_col_status ${status.toLowerCase()}">${status}</td>
+    <td class="details_col_msg message">{{html message()}}</td>
+    <td class="details_col_elapsed">${times.elapsedTime}</td>
+    <td class="details_col_times">${times.startTime}<br>${times.endTime}</td>
+  </tr>
+</script>
+
+</body>
+</html>

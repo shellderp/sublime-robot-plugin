@@ -1,0 +1,27 @@
+body {
+    background: white !important;
+    padding: 0;
+    font-size: 8pt;
+}
+a:link, a:visited {
+    color: black;
+}
+#header {
+    width: auto;
+}
+.details, .statistics {
+    width: 100%;
+}
+#generated_ago, #report_or_log_link, #normal_selector, .expand {
+    display: none;
+}
+#print_selector {
+    display: table-cell;
+}
+.narrow {
+    padding: inherit !important;
+}
+.tablesorter-header {
+    background-image: none;
+    background: #DCDCF0 !important;
+}

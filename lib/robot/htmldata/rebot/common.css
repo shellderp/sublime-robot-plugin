@@ -1,0 +1,175 @@
+/* Generic and misc styles */
+body {
+    font-family: sans-serif;
+    font-size: 0.8em;
+    color: black;
+    padding: 6px;
+    background: white;
+}
+br {
+    mso-data-placement: same-cell; /* maintain line breaks in Excel */
+}
+a:link, a:visited {
+    text-decoration: none;
+    color: blue;
+}
+a > img {
+    border: 1px solid blue !important;
+}
+a:hover, a:active {
+    text-decoration: underline;
+    color: purple;
+}
+.parent_name {
+    font-size: 0.7em;
+    letter-spacing: -0.07em;
+}
+.message {
+    white-space: pre-wrap;
+}
+/* Headers */
+#header {
+    width: 63em;
+    height: 3em;
+    margin: 6px 0;
+}
+h1 {
+    float: left;
+    width: 70%;
+    margin: 0 0 0.5em 0;
+}
+h2 {
+    clear: left;
+}
+#generated {
+    float: right;
+    width : 29%;
+    text-align: right;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+/* Status text colors -- !important allows using them in links */
+.error, .fail {
+    color: red !important;
+    font-weight: bold;
+}
+.pass {
+    color: #009900 !important;
+}
+.warn {
+    color: #FFCC00 !important;
+    font-weight: bold;
+}
+.not_run {
+    color: #444444 !important;
+}
+/* Top right header */
+#top_right_header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 12em;
+    text-align: center;
+}
+#report_or_log_link a {
+    display: block;
+    background: black;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: 0.3em 0;
+    border-bottom-left-radius: 4px;
+}
+#report_or_log_link a:hover {
+    color: yellow;
+}
+#log_level_selector {
+    padding: 0.3em 0;
+    font-size: 0.9em;
+    border-bottom-left-radius: 4px;
+    background: lightgray;
+}
+/* Statistics table */
+.statistics {
+    width: 63em;
+    border-collapse: collapse;
+    empty-cells: show;
+    margin-bottom: 1em;
+}
+.statistics tr:hover {
+    background: #F4F4FF;
+    cursor: pointer;
+}
+.statistics th, .statistics td {
+    border: 1px solid black;
+    padding: 0.1em 0.3em;
+}
+.statistics th {
+    background-color: #DCDCF0;
+}
+.stats_col_stat {
+    width: 3em;
+    text-align: center;
+}
+.stats_col_elapsed {
+    width: 4.5em;
+    text-align: center;
+}
+.stats_col_graph {
+    width: 9em;
+}
+th.stats_col_graph:hover {
+    cursor: default;
+}
+.stat_name {
+    float: left;
+}
+.stat_name a, .stat_name span {
+    font-weight: bold;
+}
+.tag_links {
+    font-size: 0.9em;
+    float: right;
+    margin-top: 0.05em;
+}
+.tag_links span {
+    margin-left: 0.2em;
+}
+/* Statistics graph */
+.graph, .empty_graph {
+    border: 1px solid black;
+    width: auto;
+    height: 8px;
+    padding: 0;
+    background: red;
+}
+.empty_graph {
+    background: #E9E9E9;
+}
+.pass_bar, .fail_bar {
+    position: relative;
+    float: left;
+    height: 100%;
+}
+.pass_bar {
+    background: #00F000;
+}
+/* Tablesorter - adapted from provided Blue Skin */
+.tablesorter-header {
+    background-image: url(data:image/gif;base64,R0lGODlhCwAJAIAAAH9/fwAAACH5BAEAAAEALAAAAAALAAkAAAIRjAOnBr3cnIr0WUjTrC9e9BQAOw==);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+.tablesorter-headerSortUp {
+    background-image: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlBWnFr3cnIr0WQOyBmvzp13CpxQAOw==);
+    background-color: #B8C8E3 !important;
+}
+.tablesorter-headerSortDown {
+    background-image: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlAWnBr3cnIr0WROyDmvzp13CpxQAOw==);
+    background-color: #B8C8E3 !important;
+}
+.narrow {
+    padding-right: 1em !important;
+}

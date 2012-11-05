@@ -1,0 +1,112 @@
+/* Generic table styles */
+table {
+    background: white;
+    border: 1px solid black;
+    border-collapse: collapse;
+    empty-cells: show;
+    margin: 0 1px;
+}
+th {
+    background: #DCDCF0;
+    color: black;
+}
+/* Summary and total/tag/suite details */
+.details {
+    clear: both;
+    width: 63em;
+    margin-bottom: 1em;
+}
+.details th {
+    background: white;
+    width: 10em;
+    white-space: nowrap;
+    text-align: left;
+    vertical-align: top;
+    padding: 0.2em 0.4em;
+}
+.details td {
+    vertical-align: top;
+    padding: 0.2em 0.4em;
+}
+#selector th, #selector td {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    white-space: normal;
+}
+#print_selector {
+    display: none;
+}
+/* Tabs - adapted from http://www.htmldog.com/articles/tabs */
+#detail_tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0 1em;
+}
+.detail_tab {
+    float: left;
+    background: #DCDCF0;
+    border: 1px solid black;
+    border-bottom-width: 0;
+    margin: 0 0.5em 0 0;
+    padding-top: 0.1em;
+    border-radius: 3px 3px 0 0;
+}
+.detail_tab:hover {
+    background: yellow;
+}
+.detail_tab a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0 1em;
+}
+.detail_tab_selected {
+    position: relative;
+    top: 1px;
+    background: white;
+}
+.detail_tab_selected:hover {
+    background: white;
+}
+/* Test details table */
+#test_details {
+    width: 100%;
+}
+#test_details tr:hover {
+    background: #F4F4FF;
+}
+#test_details th, table#test_details td {
+    border: 1px solid black;
+    padding: 0 0.2em;
+}
+#test_details th {
+    padding: 0.2em;
+}
+.details_col_name {
+    min-width: 20em;
+    font-weight: bold;
+}
+.details_col_doc {
+    min-width: 10em;
+}
+.details_col_tags {
+    min-width: 10em;
+}
+.details_col_crit {
+    width: 2em;
+    text-align: center;
+}
+.details_col_status {
+    width: 3em;
+    text-align: center;
+}
+.details_col_msg {
+    min-width: 20em;
+}
+.details_col_elapsed {
+    width: 5em;
+}
+.details_col_times {
+    width: 9em;
+    white-space: nowrap;
+}
