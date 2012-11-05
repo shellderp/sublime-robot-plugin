@@ -2,7 +2,9 @@ import os, sys
 lib_path = os.path.normpath(os.path.join(os.getcwd(), 'lib/'))
 if lib_path not in sys.path:
     sys.path.append(lib_path)
-sys.path.append('C:\\Program Files\\Sublime Text 2\\')
+pyd_path = os.path.dirname(sys.executable)
+if pyd_path not in sys.path:
+    sys.path.append(pyd_path)
 
 import sublime, sublime_plugin
 from keyword_parse import get_keyword_at_pos
