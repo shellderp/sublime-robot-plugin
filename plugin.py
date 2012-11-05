@@ -8,7 +8,6 @@ if pyd_path not in sys.path:
 
 import sublime, sublime_plugin
 from keyword_parse import get_keyword_at_pos
-#import robot.utils
 from robot.parsing import TestCaseFile, ResourceFile
 from string_populator import FromStringPopulator
 import inspect
