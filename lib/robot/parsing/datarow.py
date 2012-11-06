@@ -20,8 +20,9 @@ class DataRow(object):
     _whitespace_regexp = re.compile('\s+')
     _ye_olde_metadata_prefix = 'meta:'
 
-    def __init__(self, cells):
+    def __init__(self, cells, linenumber=None):
         self.cells, self.comments = self._parse(cells)
+        self.linenumber = linenumber
 
     def _parse(self, row):
         data = []
@@ -68,6 +69,7 @@ class DataRow(object):
         datarow = DataRow([])
         datarow.cells = self._tail
         datarow.comments = self.comments
+        datarow.linenumber = self.linenumber
         return datarow
 
     def handle_old_style_metadata(self):

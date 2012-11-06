@@ -15,11 +15,12 @@
 
 class Setting(object):
 
-    def __init__(self, setting_name, parent=None, comment=None):
+    def __init__(self, setting_name, parent=None, comment=None, linenumber=None):
         self.setting_name = setting_name
         self.parent = parent
         self._set_initial_value()
         self._set_comment(comment)
+        self.linenumber = linenumber
 
     def _set_initial_value(self):
         self.value = []
@@ -38,8 +39,9 @@ class Setting(object):
     def directory(self):
         return self.parent.directory if self.parent is not None else None
 
-    def populate(self, value, comment=None):
+    def populate(self, value, comment=None, linenumber=None):
         """Mainly used at parsing time, later attributes can be set directly."""
+        self.linenumber = linenumber
         self._populate(value)
         self._set_comment(comment)
 
@@ -203,12 +205,13 @@ class Return(Setting):
 class Metadata(Setting):
     setting_name = 'Metadata'
 
-    def __init__(self, parent, name, value, comment=None, joined=False):
+    def __init__(self, parent, name, value, comment=None, joined=False, linenumber=None):
         self.parent = parent
         self.name = name
         joiner = StringValueJoiner('' if joined else ' ')
         self.value = joiner.join_string_with_value('', value)
         self._set_comment(comment)
+        self.linenumber = linenumber
 
     def reset(self):
         pass
@@ -251,8 +254,8 @@ class Library(_Import):
         _Import.__init__(self, parent, name, args, alias, comment)
 
     def _split_alias(self, args):
-        if len(args) >= 2 and isinstance(args[-2], basestring) \
-                and args[-2].upper() == 'WITH NAME':
+        if len(args) >= 2 and isinstance(args[-2], basestring)\
+        and args[-2].upper() == 'WITH NAME':
             return args[:-2], args[-1]
         return args, None
 
@@ -322,13 +325,13 @@ class _DataList(object):
 
 class ImportList(_DataList):
 
-    def populate_library(self, data, comment):
+    def populate_library(self, data, comment, linenumber=None):
         self._populate(Library, data, comment)
 
-    def populate_resource(self, data, comment):
+    def populate_resource(self, data, comment, linenumber=None):
         self._populate(Resource, data, comment)
 
-    def populate_variables(self, data, comment):
+    def populate_variables(self, data, comment, linenumber=None):
         self._populate(Variables, data, comment)
 
     def _populate(self, item_class, data, comment):
@@ -338,5 +341,5 @@ class ImportList(_DataList):
 
 class MetadataList(_DataList):
 
-    def populate(self, name, value, comment):
-        self._add(Metadata(self._parent, name, value, comment, joined=True))
+    def populate(self, name, value, comment, linenumber=None):
+        self._add(Metadata(self._parent, name, value, comment, joined=True, linenumber=linenumber))

@@ -174,6 +174,7 @@ class _TestCaseUserKeywordPopulator(Populator):
         self._test_or_uk = None
         self._populator = NullPopulator()
         self._comment_cache = CommentCache()
+        self.linenumber = None
 
     def add(self, row):
         if row.is_commented():
@@ -181,6 +182,7 @@ class _TestCaseUserKeywordPopulator(Populator):
             return
         if not self._test_or_uk:
             self._test_or_uk = self._test_or_uk_creator(row.head)
+            self._test_or_uk.linenumber = row.linenumber
         dedented_row = row.dedent()
         if dedented_row:
             self._handle_data_row(dedented_row)
@@ -216,8 +218,8 @@ class _TestCaseUserKeywordPopulator(Populator):
         return StepPopulator(self._test_or_uk.add_step)
 
     def _continues(self, row):
-        return row.is_continuing() and self._populator or \
-            (isinstance(self._populator, ForLoopPopulator) and row.is_indented())
+        return row.is_continuing() and self._populator or\
+               (isinstance(self._populator, ForLoopPopulator) and row.is_indented())
 
     def _setting_setter(self, row):
         setting_name = row.test_or_user_keyword_setting_name()
@@ -238,8 +240,17 @@ class _PropertyPopulator(Populator):
         self._setter = setter
         self._value = []
         self._comments = Comments()
+        self.linenumber = None
 
     def add(self, row):
+
+        if self.linenumber is None and not row.is_commented():
+            # If line number is currently None, set it to
+            # the current line number. If it's already set,
+            # leave it alone. Doing this means that if something
+            # spans more than one line, the line number represents
+            # the starting line
+            self.linenumber = row.linenumber
         if not row.is_commented():
             self._add(row)
         self._comments.add(row)
@@ -255,20 +266,20 @@ class VariablePopulator(_PropertyPopulator):
         self._name = name
 
     def populate(self):
-        self._setter(self._name, self._value, self._comments.value)
+        self._setter(self._name, self._value, self._comments.value, self.linenumber)
 
 
 class SettingPopulator(_PropertyPopulator):
 
     def populate(self):
-        self._setter(self._value, self._comments.value)
+        self._setter(self._value, self._comments.value, self.linenumber)
 
 
 class DocumentationPopulator(_PropertyPopulator):
     _end_of_line_escapes = re.compile(r'(\\+)n?$')
 
     def populate(self):
-        self._setter(self._value, self._comments.value)
+        self._setter(self._value, self._comments.value, self.linenumber)
 
     def _add(self, row):
         self._add_to_value(row.dedent().data)
@@ -285,7 +296,7 @@ class DocumentationPopulator(_PropertyPopulator):
         return self._joiner_based_on_eol_escapes()
 
     def _is_empty(self):
-        return not self._value or \
+        return not self._value or\
                (len(self._value) == 1 and self._value[0] == '')
 
     def _joiner_based_on_eol_escapes(self):
@@ -304,7 +315,7 @@ class MetadataPopulator(DocumentationPopulator):
         self._name = None
 
     def populate(self):
-        self._setter(self._name, self._value, self._comments.value)
+        self._setter(self._name, self._value, self._comments.value, self.linenumber)
 
     def _add(self, row):
         data = row.dedent().data
@@ -321,4 +332,4 @@ class StepPopulator(_PropertyPopulator):
 
     def populate(self):
         if self._value or self._comments:
-            self._setter(self._value, self._comments.value)
+            self._setter(self._value, self._comments.value, self.linenumber)

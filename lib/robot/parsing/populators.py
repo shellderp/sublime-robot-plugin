@@ -86,10 +86,10 @@ class FromFilePopulator(object):
     def eof(self):
         self._populator.populate()
 
-    def add(self, row):
+    def add(self, row, linenumber=None):
         if PROCESS_CURDIR and self._curdir:
             row = self._replace_curdirs_in(row)
-        data = DataRow(row)
+        data = DataRow(row, linenumber=linenumber)
         if data:
             self._populator.add(data)
 

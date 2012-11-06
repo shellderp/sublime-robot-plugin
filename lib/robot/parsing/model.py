@@ -303,7 +303,7 @@ class _SettingTable(_Table, _WithSettings):
         return OldStyleSettingAndVariableTableHeaderMatcher()
 
     def add_metadata(self, name, value='', comment=None):
-        self.metadata.add(Metadata(self, name, value, comment))
+        self.metadata.add(Metadata(self, name, value, comment, linenumber=self.linenumber))
         return self.metadata[-1]
 
     def add_library(self, name, args=None, comment=None):
@@ -401,7 +401,7 @@ class VariableTable(_Table):
     def _old_header_matcher(self):
         return OldStyleSettingAndVariableTableHeaderMatcher()
 
-    def add(self, name, value, comment=None):
+    def add(self, name, value, comment=None, linenumber=None):
         self.variables.append(Variable(name, value, comment))
 
     def __iter__(self):
@@ -454,7 +454,7 @@ class KeywordTable(_Table):
 
 class Variable(object):
 
-    def __init__(self, name, value, comment=None):
+    def __init__(self, name, value, comment=None, linenumber=None):
         self.name = name.rstrip('= ')
         if name.startswith('$') and value == []:
             value = ''
@@ -462,6 +462,7 @@ class Variable(object):
             value = [value]  # Must support scalar lists until RF 2.8 (issue 939)
         self.value = value
         self.comment = Comment(comment)
+        self.linenumber = linenumber
 
     def as_list(self):
         if self.has_data():
@@ -480,8 +481,8 @@ class Variable(object):
 
 class _WithSteps(object):
 
-    def add_step(self, content, comment=None):
-        self.steps.append(Step(content, comment))
+    def add_step(self, content, comment=None, linenumber=None):
+        self.steps.append(Step(content, comment, linenumber))
         return self.steps[-1]
 
     def copy(self, name):
@@ -502,6 +503,7 @@ class TestCase(_WithSteps, _WithSettings):
         self.setup = Fixture('[Setup]', self)
         self.teardown = Fixture('[Teardown]', self)
         self.timeout = Timeout('[Timeout]', self)
+        self.linenumber = None
         self.steps = []
 
     _setters = {'documentation': lambda s: s.doc.populate,
@@ -556,6 +558,7 @@ class UserKeyword(TestCase):
         self.return_ = Return('[Return]', self)
         self.timeout = Timeout('[Timeout]', self)
         self.teardown = Fixture('[Teardown]', self)
+        self.linenumber = None
         self.steps = []
 
     _setters = {'documentation': lambda s: s.doc.populate,
@@ -585,6 +588,7 @@ class ForLoop(_WithSteps):
         self.vars = content[:index]
         self.items = content[index+1:]
         self.steps = []
+        self.linenumber = None
 
     def _get_range_and_index(self, content):
         for index, item in enumerate(content):
@@ -614,7 +618,7 @@ class ForLoop(_WithSteps):
 
 class Step(object):
 
-    def __init__(self, content, comment=None):
+    def __init__(self, content, comment=None, linenumber=None):
         self.assign = list(self._get_assigned_vars(content))
         try:
             self.keyword = content[len(self.assign)]
@@ -622,6 +626,7 @@ class Step(object):
             self.keyword = None
         self.args = content[len(self.assign)+1:]
         self.comment = Comment(comment)
+        self.linenumber = linenumber
 
     def _get_assigned_vars(self, content):
         for item in content:
