@@ -100,8 +100,14 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
 
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
-    def on_load(self, view):
+    def autodetect(self, view):
         if (view.file_name().endswith('.txt') and
             view.find('\*{3}\s*(settings|keywords|test cases|variables)\s*\*{3}', 0, sublime.IGNORECASE) != None):
 
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
+
+    def on_load(self, view):
+        self.autodetect(view)
+
+    def on_post_save(self, view):
+        self.autodetect(view)
