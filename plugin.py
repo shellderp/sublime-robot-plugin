@@ -8,10 +8,9 @@ if pyd_path not in sys.path:
 
 import sublime, sublime_plugin
 from keyword_parse import get_keyword_at_pos
-from robot.parsing import TestCaseFile, ResourceFile
+from robot.api import TestCaseFile, ResourceFile
 from robot.errors import DataError
 from string_populator import FromStringPopulator
-import inspect
 
 # only available when the plugin is being loaded
 plugin_dir = os.getcwd()
@@ -46,6 +45,11 @@ def parse_file(suite):
         #for step in keyword.steps:
          #   print '\t', step.keyword, step.args
 
+def openKeywordFile(window, keyword):
+    source_path = keyword.source
+    window.open_file("%s:%d" % (source_path, keyword.linenumber), sublime.ENCODED_POSITION)
+
+
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         view = self.view
@@ -78,26 +82,21 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         # populate a TestCaseFile from the lines in the buffer
         regions = view.split_by_newlines(sublime.Region(0, view.size()))
         lines = [view.substr(region).encode('ascii', 'replace') + '\n' for region in regions]
-        suite = TestCaseFile(source=file_path)
-        FromStringPopulator(suite, lines).populate(suite.source)
-        #suite._validate()
+        test_case_file = TestCaseFile(source=file_path)
+        FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
 
         keywords.clear()
-        parse_file(suite)
-        try:
-            for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
-                if keyword.lower().startswith(bdd_prefix):
-                    substr = keyword[len(bdd_prefix):]
-                    if keywords.has_key(substr):
-                        source_path = keywords[substr].source
-                        window.open_file("%s" % (source_path))
-                        return
-            source_path = keywords[keyword].source
-            window.open_file("%s" % (source_path))
-        except:
-            print 'keyword not found:', keyword
+        parse_file(test_case_file)
 
-        #window.open_file("%s:%d" % (resource_path, 10), sublime.ENCODED_POSITION)
+        for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
+            if keyword.lower().startswith(bdd_prefix):
+                substr = keyword[len(bdd_prefix):]
+                if keywords.has_key(substr):
+                    openKeywordFile(window, keywords[substr])
+                    break
+        else:
+            if keywords.has_key(keyword):
+                openKeywordFile(window, keywords[keyword])
 
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
