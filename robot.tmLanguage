@@ -32,14 +32,14 @@
             <key>name</key>
             <string>comment</string>
         </dict>
-        <dict>
+        <!-- <dict>
             <key>match</key>
             <string>(\t|\s{2})[A-Z_][A-Z0-9_]*(\t|\s{2}|$)</string>
             <key>name</key>
             <string>constant.numeric</string>
             <key>comment</key>
             <string>all-uppercase constants</string>
-        </dict>
+        </dict> -->
         <dict>
             <key>match</key>
             <string>\[.*?\]</string>
