@@ -69,7 +69,7 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         path, file_name = os.path.split(file_path)
 
         if line.strip().startswith('Resource'):
-            resource = line[line.find('Resource') + 8:].strip()
+            resource = line[line.find('Resource') + 8:].strip().replace('${CURDIR}', path)
             resource_path = os.path.join(path, resource)
             window.open_file(resource_path)
             return
