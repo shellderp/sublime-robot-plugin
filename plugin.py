@@ -48,7 +48,9 @@ def parse_file(suite):
 def openKeywordFile(window, keyword):
     source_path = keyword.source
     new_view = window.open_file("%s:%d" % (source_path, keyword.linenumber), sublime.ENCODED_POSITION)
-
+    while new_view.is_loading():
+        pass
+    new_view.show_at_center(new_view.text_point(keyword.linenumber, 0))
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
