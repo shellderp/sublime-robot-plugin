@@ -48,8 +48,8 @@ def parse_file(suite):
 def openKeywordFile(window, keyword):
     source_path = keyword.source
     new_view = window.open_file("%s:%d" % (source_path, keyword.linenumber), sublime.ENCODED_POSITION)
-    while new_view.is_loading():
-        pass
+    #while new_view.is_loading():
+     #   pass
     new_view.show_at_center(new_view.text_point(keyword.linenumber, 0))
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
@@ -103,7 +103,9 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def autodetect(self, view):
-        if (view.file_name().endswith('.txt') and
+        # file name can be None if it's a find result view that is restored on startup
+
+        if (view.file_name() != None and view.file_name().endswith('.txt') and
             view.find('\*{3}\s*(settings|keywords|test cases|variables)\s*\*{3}', 0, sublime.IGNORECASE) != None):
 
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
