@@ -28,7 +28,7 @@
             <key>begin</key>
             <string>\[Documentation\]</string>
             <key>end</key>
-            <string>$</string>
+            <string>^\s*+(?!\.\.\.)</string>
             <key>name</key>
             <string>comment</string>
         </dict>
