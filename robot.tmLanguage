@@ -26,27 +26,38 @@
         </dict>
         <dict>
             <key>begin</key>
-            <string>\[Documentation\]</string>
+            <string>\[[Dd]ocumentation\]</string>
             <key>end</key>
             <string>^\s*+(?!\.\.\.)</string>
             <key>name</key>
             <string>comment</string>
         </dict>
-        <!-- <dict>
-            <key>match</key>
-            <string>(\t|\s{2})[A-Z_][A-Z0-9_]*(\t|\s{2}|$)</string>
-            <key>name</key>
-            <string>constant.numeric</string>
-            <key>comment</key>
-            <string>all-uppercase constants</string>
-        </dict> -->
         <dict>
             <key>match</key>
-            <string>\[.*?\]</string>
+            <string>\[(Setup|Teardown|Precondition|Postcondition|Template|Timeout)\]</string>
             <key>name</key>
             <string>storage.type.method.robot</string>
             <key>comment</key>
-            <string>[etc]</string>
+            <string>testcase settings</string>
+        </dict>
+        <dict>
+            <key>begin</key>
+            <string>\[[Tt]ags\]</string>
+            <key>end</key>
+            <string>^\s*+(?!\.\.\.)</string>
+            <key>name</key>
+            <string>storage.type.method.robot</string>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>match</key>
+                    <string>^\s*\.\.\.</string>
+                    <key>name</key>
+                    <string>comment</string>
+                </dict>
+            </array>
+            <key>comment</key>
+            <string>test tags</string>
         </dict>
         <dict>
             <key>match</key>
