@@ -26,7 +26,7 @@
         </dict>
         <dict>
             <key>begin</key>
-            <string>\[[Dd]ocumentation\]</string>
+            <string>(?i)\[Documentation\]</string>
             <key>end</key>
             <string>^\s*+(?!\.\.\.)</string>
             <key>name</key>
@@ -34,7 +34,7 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>\[(Setup|Teardown|Precondition|Postcondition|Template|Timeout)\]</string>
+            <string>(?i)\[(Arguments|Setup|Teardown|Precondition|Postcondition|Template|Return|Timeout)\]</string>
             <key>name</key>
             <string>storage.type.method.robot</string>
             <key>comment</key>
@@ -42,7 +42,7 @@
         </dict>
         <dict>
             <key>begin</key>
-            <string>\[[Tt]ags\]</string>
+            <string>(?i)\[Tags\]</string>
             <key>end</key>
             <string>^\s*+(?!\.\.\.)</string>
             <key>name</key>
@@ -101,7 +101,7 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>^\s*(Given|And|Then|When)</string>
+            <string>(?i)^\s*(Given|And|Then|When)</string>
             <key>name</key>
             <string>keyword.control.robot</string>
         </dict>
