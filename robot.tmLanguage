@@ -22,7 +22,7 @@
 			<key>comment</key>
 			<string>*** etc ***</string>
 			<key>end</key>
-			<string> *\**</string>
+			<string>\s*\**</string>
 			<key>name</key>
 			<string>string.robot.header</string>
 		</dict>

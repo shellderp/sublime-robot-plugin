@@ -9,7 +9,7 @@
         {
             "comment": "*** etc ***", 
             "begin": "(?i)^\\*+\\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)",
-            "end": " *\\**",
+            "end": "\\s*\\**",
             "name": "string.robot.header"
         }, 
         {
