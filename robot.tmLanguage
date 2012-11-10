@@ -17,10 +17,12 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<key>begin</key>
+			<string>(?i)^\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)</string>
 			<key>comment</key>
 			<string>*** etc ***</string>
-			<key>match</key>
-			<string>(^\*\*\*.*?\*\*\*)|((?&lt;=^\|)\s+\*\*\*.*?\*\*\*)</string>
+			<key>end</key>
+			<string> *\**</string>
 			<key>name</key>
 			<string>string.robot.header</string>
 		</dict>
