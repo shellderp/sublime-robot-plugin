@@ -67,21 +67,19 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>(\$\{.*?\})|(@\{.*?\})</string>
+            <string>((?&lt;!\\)|(?&lt;=\\\\))(\$\{.*?\})|(@\{.*?\})</string>
             <key>name</key>
             <string>entity.name.class</string>
             <key>comment</key>
-            <string>${variables}</string>
+            <string>${variables}. one backslash escapes the variable, two do not</string>
         </dict>
         <dict>
             <key>begin</key>
-            <string>^\s*#</string>
+            <string>(^| {2,}|\t|\| {1,})(?&lt;!\\)#</string>
             <key>end</key>
             <string>$</string>
             <key>name</key>
             <string>comment.robot</string>
-            <key>comment</key>
-            <string>originally (?&lt;!\\)#</string>
         </dict>
         <dict>
             <key>begin</key>
