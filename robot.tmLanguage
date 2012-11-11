@@ -1,112 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>comment</key>
-    <string>
+	<key>comment</key>
+	<string>
     Robot Framework syntax highlighting for txt files.
     </string>
-    <key>fileTypes</key>
-    <array>
-        <string>txt</string>
-    </array>
-    <key>keyEquivalent</key>
-    <string>^~R</string>
-    <key>name</key>
-    <string>Robot Framework .txt</string>
-    <key>patterns</key>
-    <array>
-        <dict>
-            <key>match</key>
-            <string>(^\*\*\*.*?\*\*\*)|((?&lt;=^\|)\s+\*\*\*.*?\*\*\*)</string>
-            <key>name</key>
-            <string>string.robot.header</string>
-            <key>comment</key>
-            <string>*** etc ***</string>
-        </dict>
-        <dict>
-            <key>begin</key>
-            <string>(?i)\[Documentation\]</string>
-            <key>end</key>
-            <string>^\s*+(?!\.\.\.)</string>
-            <key>name</key>
-            <string>comment</string>
-        </dict>
-        <dict>
-            <key>match</key>
-            <string>(?i)\[(Arguments|Setup|Teardown|Precondition|Postcondition|Template|Return|Timeout)\]</string>
-            <key>name</key>
-            <string>storage.type.method.robot</string>
-            <key>comment</key>
-            <string>testcase settings</string>
-        </dict>
-        <dict>
-            <key>begin</key>
-            <string>(?i)\[Tags\]</string>
-            <key>end</key>
-            <string>^\s*+(?!\.\.\.)</string>
-            <key>name</key>
-            <string>storage.type.method.robot</string>
-            <key>patterns</key>
-            <array>
-                <dict>
-                    <key>match</key>
-                    <string>^\s*\.\.\.</string>
-                    <key>name</key>
-                    <string>comment</string>
-                </dict>
-            </array>
-            <key>comment</key>
-            <string>test tags</string>
-        </dict>
-        <dict>
-            <key>match</key>
-            <string>\b([0-9]*(\.[0-9]+)?)\b</string>
-            <key>name</key>
-            <string>constant.numeric.robot</string>
-        </dict>
-        <dict>
-            <key>match</key>
-            <string>((?&lt;!\\)|(?&lt;=\\\\))(\$\{.*?\})|(@\{.*?\})</string>
-            <key>name</key>
-            <string>entity.name.class</string>
-            <key>comment</key>
-            <string>${variables}. one backslash escapes the variable, two do not</string>
-        </dict>
-        <dict>
-            <key>begin</key>
-            <string>(^| {2,}|\t|\| {1,})(?&lt;!\\)#</string>
-            <key>end</key>
-            <string>$</string>
-            <key>name</key>
-            <string>comment.robot</string>
-        </dict>
-        <dict>
-            <key>begin</key>
-            <string>'</string>
-            <key>end</key>
-            <string>('|$)</string>
-            <key>name</key>
-            <string>string.quoted.single.robot</string>
-        </dict>
-        <dict>
-            <key>begin</key>
-            <string>(^[^ \t\*\n\|]+)|((?&lt;=^\|)\s+[^ \t\*\n\|]+)</string>
-            <key>end</key>
-            <string>\s{2}|\t|$|\s+(?=\|)</string>
-            <key>name</key>
-            <string>keyword.control.robot</string>
-        </dict>
-        <dict>
-            <key>match</key>
-            <string>(?i)^\s*(Given|And|Then|When)</string>
-            <key>name</key>
-            <string>keyword.control.robot</string>
-        </dict>
-    </array>
-    <key>scopeName</key>
-    <string>text.robot</string>
-    <key>uuid</key>
-    <string>E54BFAB1-E5A0-4524-9FFC-FC08B20F21E4</string>
+	<key>fileTypes</key>
+	<array>
+		<string>txt</string>
+	</array>
+	<key>keyEquivalent</key>
+	<string>^~R</string>
+	<key>name</key>
+	<string>Robot Framework .txt</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>begin</key>
+			<string>(?i)^\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)</string>
+			<key>comment</key>
+			<string>*** etc ***</string>
+			<key>end</key>
+			<string>$</string>
+			<key>name</key>
+			<string>string.robot.header</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?i)\[?Documentation\]?</string>
+			<key>end</key>
+			<string>^\s*+(?!\.\.\.)</string>
+			<key>name</key>
+			<string>comment</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>testcase settings</string>
+			<key>match</key>
+			<string>(?i)\[(Arguments|Setup|Teardown|Precondition|Postcondition|Template|Return|Timeout)\]</string>
+			<key>name</key>
+			<string>storage.type.method.robot</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?i)\[Tags\]</string>
+			<key>comment</key>
+			<string>test tags</string>
+			<key>end</key>
+			<string>^\s*+(?!\.\.\.)</string>
+			<key>name</key>
+			<string>storage.type.method.robot</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>^\s*\.\.\.</string>
+					<key>name</key>
+					<string>comment</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b([0-9]*(\.[0-9]+)?)\b</string>
+			<key>name</key>
+			<string>constant.numeric.robot</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>${variables}</string>
+			<key>match</key>
+			<string>(\$\{.*?\})|(@\{.*?\})</string>
+			<key>name</key>
+			<string>entity.name.class</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^\s*#</string>
+			<key>comment</key>
+			<string>originally (?&lt;!\\)#</string>
+			<key>end</key>
+			<string>$</string>
+			<key>name</key>
+			<string>comment.robot</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>'</string>
+			<key>end</key>
+			<string>('|$)</string>
+			<key>name</key>
+			<string>string.quoted.single.robot</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(^[^ \t\*\n\|]+)|((?&lt;=^\|)\s+[^ \t\*\n\|]+)</string>
+			<key>end</key>
+			<string>\s{2}|\t|$|\s+(?=\|)</string>
+			<key>name</key>
+			<string>keyword.control.robot</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)^\s*(Given|And|Then|When)</string>
+			<key>name</key>
+			<string>keyword.control.robot</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>text.robot</string>
+	<key>uuid</key>
+	<string>E54BFAB1-E5A0-4524-9FFC-FC08B20F21E4</string>
 </dict>
 </plist>
