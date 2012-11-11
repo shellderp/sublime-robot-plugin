@@ -20,7 +20,7 @@
 			<key>begin</key>
 			<string>(?i)^\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)</string>
 			<key>comment</key>
-			<string>*** etc ***</string>
+			<string>start of a table</string>
 			<key>end</key>
 			<string>$</string>
 			<key>name</key>
@@ -69,17 +69,15 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>${variables}</string>
+			<string>${variables}. one backslash escapes the variable, two do not</string>
 			<key>match</key>
-			<string>(\$\{.*?\})|(@\{.*?\})</string>
+			<string>((?&lt;!\\)|(?&lt;=\\\\))(\$\{.*?\})|(@\{.*?\})</string>
 			<key>name</key>
 			<string>entity.name.class</string>
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^\s*#</string>
-			<key>comment</key>
-			<string>originally (?&lt;!\\)#</string>
+			<string>(^| {2,}|	|\| {1,})(?&lt;!\\)#</string>
 			<key>end</key>
 			<string>$</string>
 			<key>name</key>

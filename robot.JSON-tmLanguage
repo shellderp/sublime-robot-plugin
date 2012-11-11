@@ -7,7 +7,7 @@
     "name": "Robot Framework .txt", 
     "patterns": [
         {
-            "comment": "*** etc ***", 
+            "comment": "start of a table", 
             "begin": "(?i)^\\*+\\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)",
             "end": "$",
             "name": "string.robot.header"
@@ -39,13 +39,12 @@
             "name": "constant.numeric.robot"
         }, 
         {
-            "comment": "${variables}", 
-            "match": "(\\$\\{.*?\\})|(@\\{.*?\\})", 
+            "comment": "${variables}. one backslash escapes the variable, two do not", 
+            "match": "((?<!\\\\)|(?<=\\\\\\\\))(\\$\\{.*?\\})|(@\\{.*?\\})", 
             "name": "entity.name.class"
         }, 
         {
-            "begin": "^\\s*#", 
-            "comment": "originally (?<!\\\\)#", 
+            "begin": "(^| {2,}|\t|\\| {1,})(?<!\\\\)#", 
             "end": "$", 
             "name": "comment.robot"
         }, 
