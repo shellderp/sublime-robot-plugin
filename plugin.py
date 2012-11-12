@@ -45,12 +45,14 @@ def parse_file(suite):
         #for step in keyword.steps:
          #   print '\t', step.keyword, step.args
 
+views_to_center = {}
+
 def openKeywordFile(window, keyword):
     source_path = keyword.source
     new_view = window.open_file("%s:%d" % (source_path, keyword.linenumber), sublime.ENCODED_POSITION)
-    #while new_view.is_loading():
-     #   pass
     new_view.show_at_center(new_view.text_point(keyword.linenumber, 0))
+    if new_view.is_loading():
+        views_to_center[new_view.id()] = keyword.linenumber
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -93,11 +95,11 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
             if keyword.lower().startswith(bdd_prefix):
                 substr = keyword[len(bdd_prefix):]
-                if keywords.has_key(substr):
+                if substr in keywords:
                     openKeywordFile(window, keywords[substr])
                     break
         else:
-            if keywords.has_key(keyword):
+            if keyword in keywords:
                 openKeywordFile(window, keywords[keyword])
 
 
@@ -111,6 +113,9 @@ class AutoSyntaxHighlight(sublime_plugin.EventListener):
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
 
     def on_load(self, view):
+        if view.id() in views_to_center:
+            view.show_at_center(view.text_point(views_to_center[view.id()], 0))
+            del views_to_center[view.id()]
         self.autodetect(view)
 
     def on_post_save(self, view):
