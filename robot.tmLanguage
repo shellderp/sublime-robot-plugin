@@ -68,12 +68,27 @@
 			<string>constant.numeric.robot</string>
 		</dict>
 		<dict>
+			<key>begin</key>
+			<string>((?&lt;!\\)|(?&lt;=\\\\))[$@]\{</string>
 			<key>comment</key>
 			<string>${variables}. one backslash escapes the variable, two do not</string>
-			<key>match</key>
-			<string>((?&lt;!\\)|(?&lt;=\\\\))(\$\{.*?\})|(@\{.*?\})</string>
+			<key>end</key>
+			<string>\}</string>
 			<key>name</key>
 			<string>entity.name.class</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>.</string>
+					<key>name</key>
+					<string>entity.name.class</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
