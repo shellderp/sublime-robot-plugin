@@ -13,7 +13,7 @@
             "name": "string.robot.header"
         }, 
         {
-            "begin": "(?i)\\[?Documentation\\]?", 
+            "begin": "(?i)^\\s*\\[?Documentation\\]?", 
             "end": "^\\s*+(?!\\.\\.\\.)", 
             "name": "comment"
         }, 
