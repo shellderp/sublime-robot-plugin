@@ -40,7 +40,7 @@
         }, 
         {
             "comment": "${variables}. one backslash escapes the variable, two do not", 
-            "begin": "((?<!\\\\)|(?<=\\\\\\\\))[$@]\\{",
+            "begin": "((?<!\\\\)|(?<=\\\\\\\\))[$@%]\\{",
             "patterns": [
                 { "include": "$self" },
                 {  "name": "entity.name.class",
