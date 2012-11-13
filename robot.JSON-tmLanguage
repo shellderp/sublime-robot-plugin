@@ -56,11 +56,6 @@
             "name": "comment.robot"
         }, 
         {
-            "begin": "'", 
-            "end": "('|$)", 
-            "name": "string.quoted.single.robot"
-        }, 
-        {
             "begin": "(^[^ \\t\\*\\n\\|]+)|((?<=^\\|)\\s+[^ \\t\\*\\n\\|]+)", 
             "end": "\\s{2}|\\t|$|\\s+(?=\\|)", 
             "name": "keyword.control.robot"

@@ -100,14 +100,6 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>'</string>
-			<key>end</key>
-			<string>('|$)</string>
-			<key>name</key>
-			<string>string.quoted.single.robot</string>
-		</dict>
-		<dict>
-			<key>begin</key>
 			<string>(^[^ \t\*\n\|]+)|((?&lt;=^\|)\s+[^ \t\*\n\|]+)</string>
 			<key>end</key>
 			<string>\s{2}|\t|$|\s+(?=\|)</string>
