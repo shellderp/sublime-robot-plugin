@@ -29,21 +29,8 @@ def parse_file(suite):
                     print 'error reading resource:', resource_path
                     print de
 
-    ### not concerned with testcases ATM
-    # for test in suite.testcase_table:
-    #     print test.name
-    #     for setting in test.settings:
-    #         print '\t', setting.setting_name, setting.value if hasattr(setting, 'value') else ''
-    #     for step in test.steps:
-    #         print '\t', step.keyword, step.args
-
     for keyword in suite.keyword_table:
         keywords[keyword.name] = keyword
-        print keyword.name
-        for setting in keyword.settings:
-            print '\t', setting.setting_name, setting.value if hasattr(setting, 'value') else ''
-        for step in keyword.steps:
-           print '\t', step.keyword, step.args
 
 views_to_center = {}
 
@@ -55,11 +42,7 @@ def openKeywordFile(window, keyword):
         views_to_center[new_view.id()] = keyword.linenumber
 
 def is_robot_format(view):
-    if (view.file_name() != None and view.file_name().endswith('.txt') and
-        view.find('\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)', 0, sublime.IGNORECASE) != None):
-
-        return True
-    return False
+    return view.settings().get('syntax').endswith('robot.tmLanguage')
 
 def populate_testcase_file(view):
     regions = view.split_by_newlines(sublime.Region(0, view.size()))
@@ -74,8 +57,8 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         view = self.view
         window = view.window()
 
-        if not view.settings().get('syntax').endswith('robot.tmLanguage'):
-            return # don't run for non-robot files
+        if not is_robot_format(view):
+            return
 
         sel = view.sel()[0]
         line = view.substr(view.line(sel))
@@ -114,7 +97,11 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def autodetect(self, view):
-        if is_robot_format(view):
+        # file name can be None if it's a find result view that is restored on startup
+
+        if (view.file_name() != None and view.file_name().endswith('.txt') and
+            view.find('\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)', 0, sublime.IGNORECASE) != None):
+
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
 
     def on_load(self, view):
@@ -133,6 +120,7 @@ class AutoComplete(sublime_plugin.EventListener):
         if is_robot_format(view):
             suite = populate_testcase_file(view)
             for keyword in suite.keyword_table:
-                user_keywords.append((keyword.name, keyword.name))
+                if keyword.name.startswith(prefix):
+                    user_keywords.append((keyword.name, keyword.name))
             
             return user_keywords
