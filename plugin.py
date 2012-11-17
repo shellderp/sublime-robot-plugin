@@ -39,11 +39,11 @@ def parse_file(suite):
 
     for keyword in suite.keyword_table:
         keywords[keyword.name] = keyword
-        #print keyword.name
-        # for setting in keyword.settings:
-        #     print '\t', setting.setting_name, setting.value if hasattr(setting, 'value') else ''
-        #for step in keyword.steps:
-         #   print '\t', step.keyword, step.args
+        print keyword.name
+        for setting in keyword.settings:
+            print '\t', setting.setting_name, setting.value if hasattr(setting, 'value') else ''
+        for step in keyword.steps:
+           print '\t', step.keyword, step.args
 
 views_to_center = {}
 
@@ -53,6 +53,21 @@ def openKeywordFile(window, keyword):
     new_view.show_at_center(new_view.text_point(keyword.linenumber, 0))
     if new_view.is_loading():
         views_to_center[new_view.id()] = keyword.linenumber
+
+def is_robot_format(view):
+    if (view.file_name() != None and view.file_name().endswith('.txt') and
+        view.find('\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)', 0, sublime.IGNORECASE) != None):
+
+        return True
+    return False
+
+def populate_testcase_file(view):
+    regions = view.split_by_newlines(sublime.Region(0, view.size()))
+    lines = [view.substr(region).encode('ascii', 'replace') + '\n' for region in regions]
+    test_case_file = TestCaseFile(source=view.file_name())
+    FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
+    return test_case_file
+
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -83,14 +98,8 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         if keyword is None:
             return
 
-        # populate a TestCaseFile from the lines in the buffer
-        regions = view.split_by_newlines(sublime.Region(0, view.size()))
-        lines = [view.substr(region).encode('ascii', 'replace') + '\n' for region in regions]
-        test_case_file = TestCaseFile(source=file_path)
-        FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
-
         keywords.clear()
-        parse_file(test_case_file)
+        parse_file(populate_testcase_file(view))
 
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
             if keyword.lower().startswith(bdd_prefix):
@@ -105,11 +114,7 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def autodetect(self, view):
-        # file name can be None if it's a find result view that is restored on startup
-
-        if (view.file_name() != None and view.file_name().endswith('.txt') and
-            view.find('\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)', 0, sublime.IGNORECASE) != None):
-
+        if is_robot_format(view):
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
 
     def on_load(self, view):
@@ -120,3 +125,14 @@ class AutoSyntaxHighlight(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
         self.autodetect(view)
+
+
+class AutoComplete(sublime_plugin.EventListener):
+    def on_query_completions(self, view, prefix, locations):
+        user_keywords = []
+        if is_robot_format(view):
+            suite = populate_testcase_file(view)
+            for keyword in suite.keyword_table:
+                user_keywords.append((keyword.name, keyword.name))
+            
+            return user_keywords
