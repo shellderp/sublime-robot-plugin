@@ -17,24 +17,23 @@ plugin_dir = os.getcwd()
 
 keywords = {}
 
-# suite is an already loaded robot file
-def parse_file(suite):
-    for setting in suite.setting_table:
+# data_file is an already loaded robot file
+def parse_file(data_file):
+    for setting in data_file.setting_table:
         if hasattr(setting, 'type'):
             if setting.type == 'Resource':
                 resource_path = os.path.normpath(os.path.join(setting.directory, setting.name))
                 try:
                     parse_file(ResourceFile(source=resource_path).populate())
                 except DataError as de:
-                    print 'error reading resource:', resource_path
-                    print de
+                    print 'error reading resource:', resource_path, de
 
-    for keyword in suite.keyword_table:
+    for keyword in data_file.keyword_table:
         keywords[keyword.name] = keyword
 
 views_to_center = {}
 
-def openKeywordFile(window, keyword):
+def open_keyword_file(window, keyword):
     source_path = keyword.source
     new_view = window.open_file("%s:%d" % (source_path, keyword.linenumber), sublime.ENCODED_POSITION)
     new_view.show_at_center(new_view.text_point(keyword.linenumber, 0))
@@ -88,11 +87,11 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             if keyword.lower().startswith(bdd_prefix):
                 substr = keyword[len(bdd_prefix):]
                 if substr in keywords:
-                    openKeywordFile(window, keywords[substr])
+                    open_keyword_file(window, keywords[substr])
                     break
         else:
             if keyword in keywords:
-                openKeywordFile(window, keywords[keyword])
+                open_keyword_file(window, keywords[keyword])
 
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
