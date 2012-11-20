@@ -15,7 +15,7 @@ from string_populator import FromStringPopulator
 # only available when the plugin is being loaded
 plugin_dir = os.getcwd()
 
-keywords = {}
+keywords = []
 
 # data_file is an already loaded robot file
 def parse_file(data_file):
@@ -29,7 +29,7 @@ def parse_file(data_file):
                     print 'error reading resource:', resource_path, de
 
     for keyword in data_file.keyword_table:
-        keywords[keyword.name] = keyword
+        keywords.append(keyword)
 
 views_to_center = {}
 
@@ -50,6 +50,12 @@ def populate_testcase_file(view):
     FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
     return test_case_file
 
+def find_keyword(name):
+    lower_name = name.lower()
+    for keyword in keywords:
+        # todo support regex + ignore whitespace
+        if lower_name == keyword.name.lower():
+            return keyword
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -64,7 +70,7 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
         row, col = view.rowcol(sel.begin())
         
         file_path = view.file_name()
-        if file_path is None:
+        if not file_path:
             sublime.error_message('Please save the buffer to a file first.')
             return
         path, file_name = os.path.split(file_path)
@@ -76,22 +82,23 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             return
 
         keyword = get_keyword_at_pos(line, col)
-        
-        if keyword is None:
+        if not keyword:
             return
 
-        keywords.clear()
+        del keywords[:]
         parse_file(populate_testcase_file(view))
 
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
             if keyword.lower().startswith(bdd_prefix):
                 substr = keyword[len(bdd_prefix):]
-                if substr in keywords:
-                    open_keyword_file(window, keywords[substr])
+                kw = find_keyword(substr)
+                if kw:
+                    open_keyword_file(window, kw)
                     break
         else:
-            if keyword in keywords:
-                open_keyword_file(window, keywords[keyword])
+            kw = find_keyword(keyword)
+            if kw:
+                open_keyword_file(window, kw)
 
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
@@ -115,11 +122,10 @@ class AutoSyntaxHighlight(sublime_plugin.EventListener):
 
 class AutoComplete(sublime_plugin.EventListener):
     def on_query_completions(self, view, prefix, locations):
-        user_keywords = []
         if is_robot_format(view):
-            suite = populate_testcase_file(view)
-            for keyword in suite.keyword_table:
-                if keyword.name.startswith(prefix):
-                    user_keywords.append((keyword.name, keyword.name))
+
+            del keywords[:]
+            parse_file(populate_testcase_file(view))
+            user_keywords = [(keyword.name, keyword.name) for keyword in keywords if keyword.name.startswith(prefix)]
             
             return user_keywords
