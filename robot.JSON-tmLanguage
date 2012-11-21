@@ -14,7 +14,7 @@
         }, 
         {
             "begin": "(?i)^\\s*\\[?Documentation\\]?", 
-            "end": "^\\s*+(?!\\.\\.\\.)", 
+            "end": "^(?!\\s*+\\.\\.\\.)",
             "name": "comment"
         }, 
         {
@@ -25,7 +25,7 @@
         {
             "begin": "(?i)\\[Tags\\]", 
             "comment": "test tags", 
-            "end": "^\\s*+(?!\\.\\.\\.)", 
+            "end": "^(?!\\s*+\\.\\.\\.)",
             "name": "storage.type.method.robot", 
             "patterns": [
                 {

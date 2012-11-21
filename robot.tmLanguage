@@ -30,7 +30,7 @@
 			<key>begin</key>
 			<string>(?i)^\s*\[?Documentation\]?</string>
 			<key>end</key>
-			<string>^\s*+(?!\.\.\.)</string>
+			<string>^(?!\s*+\.\.\.)</string>
 			<key>name</key>
 			<string>comment</string>
 		</dict>
@@ -48,7 +48,7 @@
 			<key>comment</key>
 			<string>test tags</string>
 			<key>end</key>
-			<string>^\s*+(?!\.\.\.)</string>
+			<string>^(?!\s*+\.\.\.)</string>
 			<key>name</key>
 			<string>storage.type.method.robot</string>
 			<key>patterns</key>
