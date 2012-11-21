@@ -1,5 +1,5 @@
 import os, sys
-lib_path = os.path.normpath(os.path.join(os.getcwd(), 'lib/'))
+lib_path = os.path.normpath(os.path.join(os.getcwd(), 'lib'))
 if lib_path not in sys.path:
     sys.path.append(lib_path)
 pyd_path = os.path.dirname(sys.executable)
