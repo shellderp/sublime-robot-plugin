@@ -102,7 +102,7 @@
 			<key>begin</key>
 			<string>(^[^ \t\*\n\|]+)|((?&lt;=^\|)\s+[^ \t\*\n\|]+)</string>
 			<key>end</key>
-			<string>\s{2}|\t|$|\s+(?=\|)</string>
+			<string>(?=\s{2})|\t|$|\s+(?=\|)</string>
 			<key>name</key>
 			<string>keyword.control.robot</string>
 		</dict>
