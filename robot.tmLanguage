@@ -18,7 +18,7 @@
 	<array>
 		<dict>
 			<key>begin</key>
-			<string>(?i)^\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)</string>
+			<string>(?i)^\*+\s*(settings?|metadata|(user )?keywords?|test ?cases?|variables?)</string>
 			<key>comment</key>
 			<string>start of a table</string>
 			<key>end</key>

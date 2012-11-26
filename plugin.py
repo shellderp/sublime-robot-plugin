@@ -101,7 +101,7 @@ class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def autodetect(self, view):
         # file name can be None if it's a find result view that is restored on startup
         if (view.file_name() != None and view.file_name().endswith('.txt') and
-            view.find('\*+\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)', 0, sublime.IGNORECASE) != None):
+            view.find('\*+\s*(settings?|metadata|(user )?keywords?|test ?cases?|variables?)', 0, sublime.IGNORECASE) != None):
 
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
 

@@ -8,7 +8,7 @@
     "patterns": [
         {
             "comment": "start of a table", 
-            "begin": "(?i)^\\*+\\s*(settings?|metadata|(user )?keywords?|test cases?|variables?)",
+            "begin": "(?i)^\\*+\\s*(settings?|metadata|(user )?keywords?|test ?cases?|variables?)",
             "end": "$",
             "name": "string.robot.header"
         }, 
