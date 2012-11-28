@@ -2,11 +2,18 @@ sublime-robot-plugin
 ====================
 This project is a plugin for Sublime Text 2 that provides some conveniences for working with Robot Framework test files (.txt only).
 
+Installation
+------------
+
+The easiest way to install is to use [Package Control](http://wbond.net/sublime_packages/package_control) and search for 'Robot Framework'.
+
+Otherwise, open Sublime Text 2 and click `Preferences -> Browse Packages` to open the packages directory. Then create a directory named `Robot Framework` containing the contents of this repository.
+
 Features
 --------
 
-* Basic syntax highlighting for Robot txt files, plus automatic detection/activation
+* Syntax highlighting for Robot txt files, plus automatic detection/activation
 * alt+enter or alt+click to:
     * go to resource file at caret
-    * go to keyword at caret
-    * find caller(s) of keyword declared at caret (planned)
+    * go to user keyword at caret
+* ctrl+space to auto complete user keywords (must start on first word of keyword since sublime will break on spaces)
