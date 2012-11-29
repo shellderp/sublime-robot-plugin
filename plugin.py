@@ -45,26 +45,26 @@ def find_keyword(keywords, name):
     return None
 
 class GoToKeywordThread(threading.Thread):
-    def __init__(self, window, view_file, keyword):
-        self.window = window
+    def __init__(self, view, view_file, keyword):
+        self.view = view
         self.view_file = view_file
         self.keyword = keyword
         threading.Thread.__init__(self)
 
     def run(self):
-        keywords = scan_file(self.view_file)
+        keywords = scan_file(self.view, self.view_file)
 
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
             if self.keyword.lower().startswith(bdd_prefix):
                 substr = self.keyword[len(bdd_prefix):]
                 kw = find_keyword(keywords, substr)
                 if kw:
-                    sublime.set_timeout(lambda: open_keyword_file(self.window, kw), 0)
+                    sublime.set_timeout(lambda: open_keyword_file(self.view.window(), kw), 0)
                     break
         else:
             kw = find_keyword(keywords, self.keyword)
             if kw:
-                sublime.set_timeout(lambda: open_keyword_file(self.window, kw), 0)
+                sublime.set_timeout(lambda: open_keyword_file(self.view.window(), kw), 0)
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -94,7 +94,7 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             return
 
         view_file = populate_testcase_file(self.view)
-        GoToKeywordThread(view.window(), view_file, keyword).start()
+        GoToKeywordThread(view, view_file, keyword).start()
 
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
@@ -119,7 +119,7 @@ class AutoComplete(sublime_plugin.EventListener):
     def on_query_completions(self, view, prefix, locations):
         if is_robot_format(view):
             view_file = populate_testcase_file(view)
-            keywords = scan_file(view_file)
+            keywords = scan_file(view, view_file)
             lower_prefix = prefix.lower()
             user_keywords = [(kw.name, kw.name) for kw in keywords.itervalues()
                                 if kw.name.lower().startswith(lower_prefix)]
