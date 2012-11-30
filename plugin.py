@@ -11,6 +11,7 @@ if pyd_path not in sys.path:
 plugin_dir = os.getcwd()
 
 import threading
+import re
 
 import sublime, sublime_plugin
 
@@ -79,7 +80,7 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             return
 
         sel = view.sel()[0]
-        line = view.substr(view.line(sel))
+        line = re.compile('\r|\n').split(view.substr(view.line(sel)))[0]
         row, col = view.rowcol(sel.begin())
 
         file_path = view.file_name()
