@@ -10,16 +10,20 @@ if pyd_path not in sys.path:
 # only available when the plugin is being loaded
 plugin_dir = os.getcwd()
 
-import sublime, sublime_plugin
 import threading
+
+import sublime, sublime_plugin
 
 from robot.api import TestCaseFile
 
 from keyword_parse import get_keyword_at_pos
 from string_populator import FromStringPopulator
 from robot_scanner import scan_file
+import stdlib_keywords
 
 views_to_center = {}
+
+stdlib_keywords.load(plugin_dir)
 
 def is_robot_format(view):
     return view.settings().get('syntax').endswith('robot.tmLanguage')
@@ -38,12 +42,6 @@ def populate_testcase_file(view):
     FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
     return test_case_file
 
-def find_keyword(keywords, name):
-    lower_name = name.lower()
-    if keywords.has_key(lower_name):
-        return keywords[lower_name]
-    return None
-
 class GoToKeywordThread(threading.Thread):
     def __init__(self, view, view_file, keyword):
         self.view = view
@@ -57,14 +55,21 @@ class GoToKeywordThread(threading.Thread):
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
             if self.keyword.lower().startswith(bdd_prefix):
                 substr = self.keyword[len(bdd_prefix):]
-                kw = find_keyword(keywords, substr)
-                if kw:
-                    sublime.set_timeout(lambda: open_keyword_file(self.view.window(), kw), 0)
+                found = self.show_keyword(keywords, substr)
+                if found:
                     break
         else:
-            kw = find_keyword(keywords, self.keyword)
-            if kw:
-                sublime.set_timeout(lambda: open_keyword_file(self.view.window(), kw), 0)
+            self.show_keyword(keywords, self.keyword)
+
+    def show_keyword(self, keywords, name):
+        lower_name = name.lower()
+        if keywords.has_key(lower_name):
+            kw = keywords[lower_name]
+            sublime.set_timeout(lambda: open_keyword_file(self.view.window(), kw), 0)
+            return True
+        if stdlib_keywords.show_if_exists(lower_name):
+            return True
+        return False
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
