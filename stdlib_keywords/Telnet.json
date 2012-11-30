@@ -1,0 +1,22 @@
+{
+    "url": "http://robotframework.googlecode.com/hg/doc/libraries/Telnet.html?r=2.7.5",
+    "keywords": [
+		"Close All Connections",
+		"Close Connection",
+		"Execute Command",
+		"Login",
+		"Open Connection",
+		"Read",
+		"Read Until",
+		"Read Until Prompt",
+		"Read Until Regexp",
+		"Set Default Log Level",
+		"Set Newline",
+		"Set Prompt",
+		"Set Timeout",
+		"Switch Connection",
+		"Write",
+		"Write Bare",
+		"Write Until Expected Output"
+    ]
+}

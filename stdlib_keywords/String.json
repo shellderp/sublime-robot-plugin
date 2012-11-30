@@ -1,0 +1,25 @@
+{
+    "url": "http://robotframework.googlecode.com/hg/doc/libraries/String.html?r=2.7.5",
+    "keywords": [
+		"Fetch From Left",
+		"Fetch From Right",
+		"Generate Random String",
+		"Get Line",
+		"Get Line Count",
+		"Get Lines Containing String",
+		"Get Lines Matching Pattern",
+		"Get Lines Matching Regexp",
+		"Get Substring",
+		"Replace String",
+		"Replace String Using Regexp",
+		"Should Be Lowercase",
+		"Should Be String",
+		"Should Be Titlecase",
+		"Should Be Uppercase",
+		"Should Not Be String",
+		"Split String",
+		"Split String From Right",
+		"Split String To Characters",
+		"Split To Lines"
+    ]
+}
