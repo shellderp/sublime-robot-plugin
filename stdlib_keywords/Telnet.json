@@ -1,90 +1,90 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/Telnet.html?r=2.7.5",
     "keywords": [
-	    {
-	        "args": "",
-	        "name": "Close All Connections",
-	        "shortdoc": "Closes all open connections and empties the connection cache."
-	    },
-	    {
-	        "args": "loglevel=None",
-	        "name": "Close Connection",
-	        "shortdoc": "Closes the current Telnet connection and returns any remaining output."
-	    },
-	    {
-	        "args": "command, loglevel=None",
-	        "name": "Execute Command",
-	        "shortdoc": "Executes given command and reads and returns everything until prompt."
-	    },
-	    {
-	        "args": "username, password, login_prompt=login: , password_prompt=Password: ",
-	        "name": "Login",
-	        "shortdoc": "Logs in to the Telnet server with the given user information."
-	    },
-	    {
-	        "args": "host, alias=None, port=23, timeout=None, newline=None, prompt=None, prompt_is_regexp=False",
-	        "name": "Open Connection",
-	        "shortdoc": "Opens a new Telnet connection to the given host and port."
-	    },
-	    {
-	        "args": "loglevel=None",
-	        "name": "Read",
-	        "shortdoc": "Reads and returns/logs everything that is currently available in the output."
-	    },
-	    {
-	        "args": "expected, loglevel=None",
-	        "name": "Read Until",
-	        "shortdoc": "Reads from the current output, until expected is encountered."
-	    },
-	    {
-	        "args": "loglevel=None",
-	        "name": "Read Until Prompt",
-	        "shortdoc": "Reads from the current output, until a prompt is found."
-	    },
-	    {
-	        "args": "*expected",
-	        "name": "Read Until Regexp",
-	        "shortdoc": "Reads from the current output, until a match to a regexp in expected."
-	    },
-	    {
-	        "args": "level",
-	        "name": "Set Default Log Level",
-	        "shortdoc": "Sets the default log level used by all read keywords."
-	    },
-	    {
-	        "args": "newline",
-	        "name": "Set Newline",
-	        "shortdoc": "Sets the newline used by the `Write` keyword."
-	    },
-	    {
-	        "args": "prompt, prompt_is_regexp=False",
-	        "name": "Set Prompt",
-	        "shortdoc": "Sets the prompt used in this connection to `prompt`."
-	    },
-	    {
-	        "args": "timeout",
-	        "name": "Set Timeout",
-	        "shortdoc": "Sets the timeout used in read operations to the given value."
-	    },
-	    {
-	        "args": "index_or_alias",
-	        "name": "Switch Connection",
-	        "shortdoc": "Switches between active connections using an index or alias."
-	    },
-	    {
-	        "args": "text, loglevel=None",
-	        "name": "Write",
-	        "shortdoc": "Writes the given text over the connection and appends a newline."
-	    },
-	    {
-	        "args": "text",
-	        "name": "Write Bare",
-	        "shortdoc": "Writes the given text over the connection without appending a newline."
-	    },
-	    {
-	        "args": "text, expected, timeout, retry_interval, loglevel=None",
-	        "name": "Write Until Expected Output",
-	        "shortdoc": "Writes the given text repeatedly, until `expected` appears in the output."
-	    }
-	]
+        {
+            "args": "",
+            "name": "Close All Connections",
+            "shortdoc": "Closes all open connections and empties the connection cache."
+        },
+        {
+            "args": "loglevel=None",
+            "name": "Close Connection",
+            "shortdoc": "Closes the current Telnet connection and returns any remaining output."
+        },
+        {
+            "args": "command, loglevel=None",
+            "name": "Execute Command",
+            "shortdoc": "Executes given command and reads and returns everything until prompt."
+        },
+        {
+            "args": "username, password, login_prompt=login: , password_prompt=Password: ",
+            "name": "Login",
+            "shortdoc": "Logs in to the Telnet server with the given user information."
+        },
+        {
+            "args": "host, alias=None, port=23, timeout=None, newline=None, prompt=None, prompt_is_regexp=False",
+            "name": "Open Connection",
+            "shortdoc": "Opens a new Telnet connection to the given host and port."
+        },
+        {
+            "args": "loglevel=None",
+            "name": "Read",
+            "shortdoc": "Reads and returns/logs everything that is currently available in the output."
+        },
+        {
+            "args": "expected, loglevel=None",
+            "name": "Read Until",
+            "shortdoc": "Reads from the current output, until expected is encountered."
+        },
+        {
+            "args": "loglevel=None",
+            "name": "Read Until Prompt",
+            "shortdoc": "Reads from the current output, until a prompt is found."
+        },
+        {
+            "args": "*expected",
+            "name": "Read Until Regexp",
+            "shortdoc": "Reads from the current output, until a match to a regexp in expected."
+        },
+        {
+            "args": "level",
+            "name": "Set Default Log Level",
+            "shortdoc": "Sets the default log level used by all read keywords."
+        },
+        {
+            "args": "newline",
+            "name": "Set Newline",
+            "shortdoc": "Sets the newline used by the `Write` keyword."
+        },
+        {
+            "args": "prompt, prompt_is_regexp=False",
+            "name": "Set Prompt",
+            "shortdoc": "Sets the prompt used in this connection to `prompt`."
+        },
+        {
+            "args": "timeout",
+            "name": "Set Timeout",
+            "shortdoc": "Sets the timeout used in read operations to the given value."
+        },
+        {
+            "args": "index_or_alias",
+            "name": "Switch Connection",
+            "shortdoc": "Switches between active connections using an index or alias."
+        },
+        {
+            "args": "text, loglevel=None",
+            "name": "Write",
+            "shortdoc": "Writes the given text over the connection and appends a newline."
+        },
+        {
+            "args": "text",
+            "name": "Write Bare",
+            "shortdoc": "Writes the given text over the connection without appending a newline."
+        },
+        {
+            "args": "text, expected, timeout, retry_interval, loglevel=None",
+            "name": "Write Until Expected Output",
+            "shortdoc": "Writes the given text repeatedly, until `expected` appears in the output."
+        }
+    ]
 }

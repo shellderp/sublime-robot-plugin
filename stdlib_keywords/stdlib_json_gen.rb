@@ -17,11 +17,12 @@ urls = [
 ]
 
 def write_json(name, url, keywords)
-  output = {"url" => url, "keywords" => keywords}
+  json = {"url" => url, "keywords" => keywords}
   out_file = "#{name}.json"
   puts "writing to #{out_file}"
-  File.open(out_file, 'w') do |f|
-    f.write(JSON.pretty_generate output, {:indent => '    '})
+  File.open(out_file, 'wb') do |f|
+    output = JSON.pretty_generate json, {:indent => '    '}
+    f.write(output + "\n")
   end
 end
 
