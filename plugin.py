@@ -15,12 +15,11 @@ import re
 
 import sublime, sublime_plugin
 
-from robot.api import TestCaseFile
-
 from keyword_parse import get_keyword_at_pos
-from string_populator import FromStringPopulator
+from string_populator import populate_testcase_file
 from robot_scanner import scan_file
 import stdlib_keywords
+
 
 views_to_center = {}
 
@@ -29,19 +28,23 @@ stdlib_keywords.load(plugin_dir)
 def is_robot_format(view):
     return view.settings().get('syntax').endswith('robot.tmLanguage')
 
-def open_keyword_file(window, keyword):
-    source_path = keyword.source
-    new_view = window.open_file("%s:%d" % (source_path, keyword.linenumber), sublime.ENCODED_POSITION)
-    new_view.show_at_center(new_view.text_point(keyword.linenumber, 0))
-    if new_view.is_loading():
-        views_to_center[new_view.id()] = keyword.linenumber
+def select_keyword_and_go(view, results):
+    def on_done(index):
+        if index == -1:
+            return
+        results[index].show_definition(view, views_to_center)
 
-def populate_testcase_file(view):
-    regions = view.split_by_newlines(sublime.Region(0, view.size()))
-    lines = [view.substr(region).encode('ascii', 'replace') + '\n' for region in regions]
-    test_case_file = TestCaseFile(source=view.file_name())
-    FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
-    return test_case_file
+    if len(results) == 1 and results[0].allow_unprompted_go_to():
+        results[0].show_definition(view, views_to_center)
+        return
+
+    result_strings = []
+    for kw in results:
+        strings = [kw.name]
+        strings.extend(kw.description)
+        result_strings.append(strings)
+    view.window().show_quick_panel(result_strings, on_done)
+
 
 class GoToKeywordThread(threading.Thread):
     def __init__(self, view, view_file, keyword):
@@ -53,24 +56,24 @@ class GoToKeywordThread(threading.Thread):
     def run(self):
         keywords = scan_file(self.view, self.view_file)
 
+        results = []
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
             if self.keyword.lower().startswith(bdd_prefix):
                 substr = self.keyword[len(bdd_prefix):]
-                found = self.show_keyword(keywords, substr)
-                if found:
-                    break
-        else:
-            self.show_keyword(keywords, self.keyword)
+                results.extend(self.search_user_keywords(keywords, substr))
+                results.extend(stdlib_keywords.search_keywords(substr))
 
-    def show_keyword(self, keywords, name):
+        results.extend(self.search_user_keywords(keywords, self.keyword))
+        results.extend(stdlib_keywords.search_keywords(self.keyword))
+
+        sublime.set_timeout(lambda: select_keyword_and_go(self.view, results), 0)
+
+    def search_user_keywords(self, keywords, name):
         lower_name = name.lower()
-        if keywords.has_key(lower_name):
-            kw = keywords[lower_name]
-            sublime.set_timeout(lambda: open_keyword_file(self.view.window(), kw), 0)
-            return True
-        if stdlib_keywords.show_if_exists(lower_name):
-            return True
-        return False
+        if not keywords.has_key(lower_name):
+            return []
+        return keywords[lower_name]
+
 
 class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -127,6 +130,6 @@ class AutoComplete(sublime_plugin.EventListener):
             view_file = populate_testcase_file(view)
             keywords = scan_file(view, view_file)
             lower_prefix = prefix.lower()
-            user_keywords = [(kw.name, kw.name) for kw in keywords.itervalues()
-                                if kw.name.lower().startswith(lower_prefix)]
+            user_keywords = [(kw[0].keyword.name, kw[0].keyword.name) for kw in keywords.itervalues()
+                                if kw[0].keyword.name.lower().startswith(lower_prefix)]
             return user_keywords

@@ -1,36 +1,160 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/XML.html?r=2.7.5",
     "keywords": [
-		"Add Element",
-		"Clear Element",
-		"Copy Element",
-		"Element Attribute Should Be",
-		"Element Attribute Should Match",
-		"Element Should Exist",
-		"Element Should Not Exist",
-		"Element Should Not Have Attribute",
-		"Element Text Should Be",
-		"Element Text Should Match",
-		"Element To String",
-		"Elements Should Be Equal",
-		"Elements Should Match",
-		"Get Child Elements",
-		"Get Element",
-		"Get Element Attribute",
-		"Get Element Attributes",
-		"Get Element Count",
-		"Get Element Text",
-		"Get Elements",
-		"Get Elements Texts",
-		"Log Element",
-		"Parse Xml",
-		"Remove Element",
-		"Remove Element Attribute",
-		"Remove Element Attributes",
-		"Remove Elements",
-		"Save Xml",
-		"Set Element Attribute",
-		"Set Element Tag",
-		"Set Element Text"
+        {
+            "args": "source, element, index=None, xpath=.",
+            "name": "Add Element",
+            "shortdoc": "Adds a child element to the specified element."
+        },
+        {
+            "args": "source, xpath=., clear_tail=False",
+            "name": "Clear Element",
+            "shortdoc": "Clears the contents of the specified element."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Copy Element",
+            "shortdoc": "Returns a copy of the specified element."
+        },
+        {
+            "args": "source, name, expected, xpath=., message=None",
+            "name": "Element Attribute Should Be",
+            "shortdoc": "Verifies that the specified attribute is `expected`."
+        },
+        {
+            "args": "source, name, pattern, xpath=., message=None",
+            "name": "Element Attribute Should Match",
+            "shortdoc": "Verifies that the specified attribute matches `expected`."
+        },
+        {
+            "args": "source, xpath=., message=None",
+            "name": "Element Should Exist",
+            "shortdoc": "Verifies that one or more element match the given `xpath`."
+        },
+        {
+            "args": "source, xpath=., message=None",
+            "name": "Element Should Not Exist",
+            "shortdoc": "Verifies that no element match the given `xpath`."
+        },
+        {
+            "args": "source, name, xpath=., message=None",
+            "name": "Element Should Not Have Attribute",
+            "shortdoc": "Verifies that the specified element does not have  attribute `name`."
+        },
+        {
+            "args": "source, expected, xpath=., normalize_whitespace=False, message=None",
+            "name": "Element Text Should Be",
+            "shortdoc": "Verifies that the text of the specified element is `expected`."
+        },
+        {
+            "args": "source, pattern, xpath=., normalize_whitespace=False, message=None",
+            "name": "Element Text Should Match",
+            "shortdoc": "Verifies that the text of the specified element matches `expected`."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Element To String",
+            "shortdoc": "Returns the string representation of the specified element."
+        },
+        {
+            "args": "source, expected, exclude_children=False, normalize_whitespace=False",
+            "name": "Elements Should Be Equal",
+            "shortdoc": "Verifies that the given `source` element is equal to `expected`."
+        },
+        {
+            "args": "source, expected, exclude_children=False, normalize_whitespace=False",
+            "name": "Elements Should Match",
+            "shortdoc": "Verifies that the given `source` element matches `expected`."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Get Child Elements",
+            "shortdoc": "Returns the child elements of the specified element as a list."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Get Element",
+            "shortdoc": "Returns an element in the `source` matching the `xpath`."
+        },
+        {
+            "args": "source, name, xpath=., default=None",
+            "name": "Get Element Attribute",
+            "shortdoc": "Returns the named attribute of the specified element."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Get Element Attributes",
+            "shortdoc": "Returns all attributes of the specified element."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Get Element Count",
+            "shortdoc": "Returns and logs how many elements the given `xpath` matches."
+        },
+        {
+            "args": "source, xpath=., normalize_whitespace=False",
+            "name": "Get Element Text",
+            "shortdoc": "Returns all text of the element, possibly whitespace normalized."
+        },
+        {
+            "args": "source, xpath",
+            "name": "Get Elements",
+            "shortdoc": "Returns a list of elements in the `source` matching the `xpath`."
+        },
+        {
+            "args": "source, xpath, normalize_whitespace=False",
+            "name": "Get Elements Texts",
+            "shortdoc": "Returns text of all elements matching `xpath` as a list."
+        },
+        {
+            "args": "source, level=INFO, xpath=.",
+            "name": "Log Element",
+            "shortdoc": "Logs the string representation of the specified element."
+        },
+        {
+            "args": "source, keep_clark_notation=False",
+            "name": "Parse Xml",
+            "shortdoc": "Parses the given XML file or string into an element structure."
+        },
+        {
+            "args": "source, xpath=, remove_tail=False",
+            "name": "Remove Element",
+            "shortdoc": "Removes the element matching `xpath` from the `source` structure."
+        },
+        {
+            "args": "source, name, xpath=.",
+            "name": "Remove Element Attribute",
+            "shortdoc": "Removes attribute `name` from the specified element."
+        },
+        {
+            "args": "source, xpath=.",
+            "name": "Remove Element Attributes",
+            "shortdoc": "Removes all attributes from the specified element."
+        },
+        {
+            "args": "source, xpath=, remove_tail=False",
+            "name": "Remove Elements",
+            "shortdoc": "Removes all elements matching `xpath` from the `source` structure."
+        },
+        {
+            "args": "source, path, encoding=UTF-8",
+            "name": "Save Xml",
+            "shortdoc": "Saves the given element to the specified file."
+        },
+        {
+            "args": "source, name, value, xpath=.",
+            "name": "Set Element Attribute",
+            "shortdoc": "Sets attribute `name` of the specified element to `value`"
+        },
+        {
+            "args": "source, tag, xpath=.",
+            "name": "Set Element Tag",
+            "shortdoc": "Sets the tag of the specified element to `tag`."
+        },
+        {
+            "args": "source, text=None, tail=None, xpath=.",
+            "name": "Set Element Text",
+            "shortdoc": "Sets text and/or tail text of the specified element."
+        }
     ]
 }

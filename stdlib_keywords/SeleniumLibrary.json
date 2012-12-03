@@ -1,0 +1,705 @@
+{
+    "url": "http://robotframework-seleniumlibrary.googlecode.com/hg/doc/SeleniumLibrary.html",
+    "keywords": [
+        {
+            "args": "strategy_name, function_definition",
+            "name": "Add Location Strategy",
+            "shortdoc": "Adds a custom location strategy."
+        },
+        {
+            "args": "text=",
+            "name": "Alert Should Be Present",
+            "shortdoc": "Verifies an alert is present and dismisses it."
+        },
+        {
+            "args": "locator, id",
+            "name": "Assign Id To Element",
+            "shortdoc": "Assigns a temporary identifier to element specified by `locator`."
+        },
+        {
+            "args": "method_name, *args",
+            "name": "Call Selenium Api",
+            "shortdoc": "Calls a method in the Selenium remote control API directly."
+        },
+        {
+            "args": "filename=None, css=background=#CCFFDD",
+            "name": "Capture Page Screenshot",
+            "shortdoc": "Takes a screenshot of the current page and embeds it into the log."
+        },
+        {
+            "args": "filename=None",
+            "name": "Capture Screenshot",
+            "shortdoc": "Takes a screenshot of the entire screen and embeds it into the log."
+        },
+        {
+            "args": "locator",
+            "name": "Checkbox Should Be Selected",
+            "shortdoc": "Verifies checkbox identified by `locator` is selected/checked."
+        },
+        {
+            "args": "locator",
+            "name": "Checkbox Should Not Be Selected",
+            "shortdoc": "Verifies checkbox identified by `locator` is not selected/checked."
+        },
+        {
+            "args": "",
+            "name": "Choose Cancel On Next Confirmation",
+            "shortdoc": "Cancel will be selected the next time `Confirm Action` is used."
+        },
+        {
+            "args": "identifier, file_path",
+            "name": "Choose File",
+            "shortdoc": "Inputs the `file_path` into file input field found by `identifier`."
+        },
+        {
+            "args": "locator, dont_wait=",
+            "name": "Click Button",
+            "shortdoc": "Clicks a button identified by `locator`."
+        },
+        {
+            "args": "locator, dont_wait=, coordinates=None",
+            "name": "Click Element",
+            "shortdoc": "Click element identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Click Flex Element",
+            "shortdoc": "Clicks an element found by `locator`."
+        },
+        {
+            "args": "locator, dont_wait=",
+            "name": "Click Image",
+            "shortdoc": "Clicks an image found by `locator`."
+        },
+        {
+            "args": "locator, dont_wait=",
+            "name": "Click Link",
+            "shortdoc": "Clicks a link identified by locator."
+        },
+        {
+            "args": "",
+            "name": "Close All Browsers",
+            "shortdoc": "Closes all open browsers and empties the connection cache."
+        },
+        {
+            "args": "",
+            "name": "Close Browser",
+            "shortdoc": "Closes the current browser."
+        },
+        {
+            "args": "",
+            "name": "Close Window",
+            "shortdoc": "Closes currently opened pop-up window."
+        },
+        {
+            "args": "",
+            "name": "Confirm Action",
+            "shortdoc": "Dismisses currently shown confirmation dialog and returns it's message."
+        },
+        {
+            "args": "text, loglevel=INFO",
+            "name": "Current Frame Contains",
+            "shortdoc": "Verifies that current page contains `text`."
+        },
+        {
+            "args": "text, loglevel=INFO",
+            "name": "Current Frame Should Contain",
+            "shortdoc": "Verifies that current page contains `text`."
+        },
+        {
+            "args": "",
+            "name": "Delete All Cookies",
+            "shortdoc": "Deletes all cookies by calling `Delete Cookie` repeatedly."
+        },
+        {
+            "args": "name, options=",
+            "name": "Delete Cookie",
+            "shortdoc": "Deletes cookie matching `name` and `options`."
+        },
+        {
+            "args": "locator, dont_wait=, coordinates=None",
+            "name": "Double Click Element",
+            "shortdoc": "Double click element identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Double Click Flex Element",
+            "shortdoc": "Double clicks an element found by `locator`."
+        },
+        {
+            "args": "locator, movement=None, target=None",
+            "name": "Drag And Drop",
+            "shortdoc": "Drags element identified with `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Element Should Be Disabled",
+            "shortdoc": "Verifies that element identified with `locator` is disabled."
+        },
+        {
+            "args": "locator",
+            "name": "Element Should Be Enabled",
+            "shortdoc": "Verifies that element identified with `locator` is enabled."
+        },
+        {
+            "args": "locator, message=",
+            "name": "Element Should Be Visible",
+            "shortdoc": "Verifies that the element identified by `locator` is visible."
+        },
+        {
+            "args": "locator, expected, message=",
+            "name": "Element Should Contain",
+            "shortdoc": "Verifies element identified by `locator` contains text `expected`."
+        },
+        {
+            "args": "locator, message=",
+            "name": "Element Should Not Be Visible",
+            "shortdoc": "Verifies that the element identified by `locator` is NOT visible."
+        },
+        {
+            "args": "locator, expected, message=",
+            "name": "Element Text Should Be",
+            "shortdoc": "Verifies element identified by `locator` exactly contains text `expected`."
+        },
+        {
+            "args": "*code",
+            "name": "Execute Javascript",
+            "shortdoc": "Executes the given JavaScript code."
+        },
+        {
+            "args": "locator, property, expected",
+            "name": "Flex Element Property Should Be",
+            "shortdoc": "Verifies than an element found by `locator` has correct property."
+        },
+        {
+            "args": "locator",
+            "name": "Flex Element Should Exist",
+            "shortdoc": "Verifies that an element can be found by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Flex Element Should Not Exist",
+            "shortdoc": "Verifies that an element is not found by `locator`."
+        },
+        {
+            "args": "locator, expected",
+            "name": "Flex Element Text Should Be",
+            "shortdoc": "Verifies that an element found by `locator` has text `expected`."
+        },
+        {
+            "args": "locator",
+            "name": "Focus",
+            "shortdoc": "Sets focus to element identified by `locator`."
+        },
+        {
+            "args": "locator, text, loglevel=INFO",
+            "name": "Frame Should Contain",
+            "shortdoc": "Verifies frame identified by `locator` contains `text`."
+        },
+        {
+            "args": "locator, text, loglevel=INFO",
+            "name": "Frame Should Contain Text",
+            "shortdoc": "Verifies frame identified by `locator` contains `text`."
+        },
+        {
+            "args": "",
+            "name": "Get Alert Message",
+            "shortdoc": "Returns the text of current JavaScript alert."
+        },
+        {
+            "args": "",
+            "name": "Get All Links",
+            "shortdoc": "Returns a list containing ids of all links found in current page."
+        },
+        {
+            "args": "name",
+            "name": "Get Cookie Value",
+            "shortdoc": "Returns value of cookie found with `name`."
+        },
+        {
+            "args": "",
+            "name": "Get Cookies",
+            "shortdoc": "Returns all cookies of the current page."
+        },
+        {
+            "args": "attribute_locator",
+            "name": "Get Element Attribute",
+            "shortdoc": "Return value of element attribute."
+        },
+        {
+            "args": "locator",
+            "name": "Get Horizontal Position",
+            "shortdoc": "Returns horizontal position of element identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Get Inner Html",
+            "shortdoc": "Returns inner HTML of element identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Get List Items",
+            "shortdoc": "Returns the values in the list identified by `locator`."
+        },
+        {
+            "args": "",
+            "name": "Get Location",
+            "shortdoc": "Returns the current location."
+        },
+        {
+            "args": "xpath",
+            "name": "Get Matching Xpath Count",
+            "shortdoc": "Returns number of elements matching `xpath`"
+        },
+        {
+            "args": "locator",
+            "name": "Get Selected List Label",
+            "shortdoc": "Returns the visible label of the selected element from the list identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Get Selected List Labels",
+            "shortdoc": "Returns the visible labels of selected elements (as a list) from the list identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Get Selected List Value",
+            "shortdoc": "Returns the value of the selected element from the list identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Get Selected List Values",
+            "shortdoc": "Returns the values of selected elements (as a list) from the list identified by `locator`."
+        },
+        {
+            "args": "",
+            "name": "Get Source",
+            "shortdoc": "Returns the entire html source of the current page or frame."
+        },
+        {
+            "args": "table_locator, row, column",
+            "name": "Get Table Cell",
+            "shortdoc": "Returns the content from a table cell."
+        },
+        {
+            "args": "locator",
+            "name": "Get Text",
+            "shortdoc": "Returns the text of element identified by `locator`."
+        },
+        {
+            "args": "",
+            "name": "Get Title",
+            "shortdoc": "Returns title of current page."
+        },
+        {
+            "args": "locator",
+            "name": "Get Value",
+            "shortdoc": "Returns the value attribute of element identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Get Vertical Position",
+            "shortdoc": "Returns vertical position of element identified by `locator`."
+        },
+        {
+            "args": "",
+            "name": "Get Window Identifiers",
+            "shortdoc": "Returns and logs id attributes of all windows known to the browser."
+        },
+        {
+            "args": "",
+            "name": "Get Window Names",
+            "shortdoc": "Returns and logs names of all windows known to the browser."
+        },
+        {
+            "args": "",
+            "name": "Get Window Titles",
+            "shortdoc": "Returns and logs titles of all windows known to the browser."
+        },
+        {
+            "args": "dont_wait=",
+            "name": "Go Back",
+            "shortdoc": "Simulates the user clicking the \"back\" button on their browser."
+        },
+        {
+            "args": "url",
+            "name": "Go To",
+            "shortdoc": "Navigates the active browser instance to the provided URL."
+        },
+        {
+            "args": "locator",
+            "name": "Highlight Element",
+            "shortdoc": "Highlights element found with `locator` briefly."
+        },
+        {
+            "args": "locator, text",
+            "name": "Input Password",
+            "shortdoc": "Types the given password into text field identified by `locator`."
+        },
+        {
+            "args": "locator, text",
+            "name": "Input Text",
+            "shortdoc": "Types the given `text` into text field identified by `locator`."
+        },
+        {
+            "args": "locator, text",
+            "name": "Input Text Into Flex Element",
+            "shortdoc": "Inputs `text` into an element found by `locator`."
+        },
+        {
+            "args": "locator, *values",
+            "name": "List Selection Should Be",
+            "shortdoc": "Verifies the selection of list identified by `locator` is exactly `*values`."
+        },
+        {
+            "args": "locator",
+            "name": "List Should Have No Selections",
+            "shortdoc": "Verifies list identified by `locator` has no selections."
+        },
+        {
+            "args": "url",
+            "name": "Location Should Be",
+            "shortdoc": "Verifies that current URL is exactly `url`."
+        },
+        {
+            "args": "expected",
+            "name": "Location Should Contain",
+            "shortdoc": "Verifies that current URL contains `expected`."
+        },
+        {
+            "args": "level=INFO",
+            "name": "Log Source",
+            "shortdoc": "Logs and returns the entire html source of the current page or frame."
+        },
+        {
+            "args": "",
+            "name": "Maximize Browser Window",
+            "shortdoc": "Maximizes current browser window."
+        },
+        {
+            "args": "locator",
+            "name": "Mouse Down",
+            "shortdoc": "Simulates pressing the left mouse button on the element specified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Mouse Down On Image",
+            "shortdoc": "Simulates a mouse down event on an image."
+        },
+        {
+            "args": "locator",
+            "name": "Mouse Down On Link",
+            "shortdoc": "Simulates a mouse down event on a link."
+        },
+        {
+            "args": "locator",
+            "name": "Mouse Out",
+            "shortdoc": "Simulates moving mouse away from the element specified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Mouse Over",
+            "shortdoc": "Simulates hovering mouse over the element specified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Mouse Up",
+            "shortdoc": "Simulates releasing the left mouse button on the element specified by `locator`."
+        },
+        {
+            "args": "url, browser=firefox, alias=None",
+            "name": "Open Browser",
+            "shortdoc": "Opens a new browser instance to given URL."
+        },
+        {
+            "args": "locator, offset=None",
+            "name": "Open Context Menu",
+            "shortdoc": "Opens context menu on element identified by `locator`."
+        },
+        {
+            "args": "text, loglevel=INFO",
+            "name": "Page Should Contain",
+            "shortdoc": "Verifies that current page contains `text`."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Button",
+            "shortdoc": "Verifies button identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Checkbox",
+            "shortdoc": "Verifies checkbox identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Element",
+            "shortdoc": "Verifies element identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Image",
+            "shortdoc": "Verifies image identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Link",
+            "shortdoc": "Verifies link identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain List",
+            "shortdoc": "Verifies list identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Radio Button",
+            "shortdoc": "Verifies radio button identified by `locator` is found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Contain Textfield",
+            "shortdoc": "Verifies text field identified by `locator` is found from current page."
+        },
+        {
+            "args": "text, loglevel=INFO",
+            "name": "Page Should Not Contain",
+            "shortdoc": "Verifies the current page does not contain `text`."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Button",
+            "shortdoc": "Verifies button identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Checkbox",
+            "shortdoc": "Verifies checkbox identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Element",
+            "shortdoc": "Verifies element identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Image",
+            "shortdoc": "Verifies image identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Link",
+            "shortdoc": "Verifies link identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain List",
+            "shortdoc": "Verifies list identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Radio Button",
+            "shortdoc": "Verifies radio button identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, message=, loglevel=INFO",
+            "name": "Page Should Not Contain Textfield",
+            "shortdoc": "Verifies text field identified by `locator` is not found from current page."
+        },
+        {
+            "args": "locator, key, wait=",
+            "name": "Press Key",
+            "shortdoc": "Simulates user pressing key on element identified by `locator`."
+        },
+        {
+            "args": "keycode, wait=",
+            "name": "Press Key Native",
+            "shortdoc": "Simulates user pressing key by sending an operating system keystroke."
+        },
+        {
+            "args": "group_name, value",
+            "name": "Radio Button Should Be Set To",
+            "shortdoc": "Verifies radio button group identified by `group_name` has its selection set to `value`."
+        },
+        {
+            "args": "group_name",
+            "name": "Radio Button Should Not Be Selected",
+            "shortdoc": "Verifies radio button group identified by `group_name` has no selection."
+        },
+        {
+            "args": "keyword_name",
+            "name": "Register Keyword To Run On Failure",
+            "shortdoc": "Sets the keyword to execute when a SeleniumLibrary keyword fails."
+        },
+        {
+            "args": "",
+            "name": "Reload Page",
+            "shortdoc": "Simulates user reloading page."
+        },
+        {
+            "args": "locator, wait=",
+            "name": "Select All From List",
+            "shortdoc": "Selects all values from multi-select list identified by `id`."
+        },
+        {
+            "args": "locator",
+            "name": "Select Checkbox",
+            "shortdoc": "Selects checkbox identified by `locator`."
+        },
+        {
+            "args": "locator",
+            "name": "Select Flex Application",
+            "shortdoc": "Selects Flex application to work with and waits until it is active."
+        },
+        {
+            "args": "locator",
+            "name": "Select Frame",
+            "shortdoc": "Sets frame identified by `locator` as current frame."
+        },
+        {
+            "args": "locator, value",
+            "name": "Select From Flex Element",
+            "shortdoc": "Selects `value` from an element found by `locator`."
+        },
+        {
+            "args": "locator, *values",
+            "name": "Select From List",
+            "shortdoc": "Selects `*values` from list identified by `locator`"
+        },
+        {
+            "args": "group_name, value, wait=",
+            "name": "Select Radio Button",
+            "shortdoc": "Sets selection of radio button group identified by `group_name` to `value`."
+        },
+        {
+            "args": "locator=main",
+            "name": "Select Window",
+            "shortdoc": "Selects the window found with `locator` as the context of actions."
+        },
+        {
+            "args": "seconds",
+            "name": "Set Selenium Speed",
+            "shortdoc": "Sets the delay that is waited after each Selenium command."
+        },
+        {
+            "args": "seconds",
+            "name": "Set Selenium Timeout",
+            "shortdoc": "Sets the timeout used by various keywords."
+        },
+        {
+            "args": "locator, event",
+            "name": "Simulate",
+            "shortdoc": "Simulates `event` on element identified by `locator`."
+        },
+        {
+            "args": "*params",
+            "name": "Start Selenium Server",
+            "shortdoc": "Starts the Selenium Server provided with SeleniumLibrary."
+        },
+        {
+            "args": "",
+            "name": "Stop Selenium Server",
+            "shortdoc": "Stops the selenium server (and closes all browsers)."
+        },
+        {
+            "args": "locator=, dont_wait=",
+            "name": "Submit Form",
+            "shortdoc": "Submits a form identified by `locator`."
+        },
+        {
+            "args": "index_or_alias",
+            "name": "Switch Browser",
+            "shortdoc": "Switches between active browsers using index or alias."
+        },
+        {
+            "args": "table_locator, row, column, expected",
+            "name": "Table Cell Should Contain",
+            "shortdoc": "Verifies that a certain cell in a table contains `expected`."
+        },
+        {
+            "args": "table_locator, col, expected, loglevel=INFO",
+            "name": "Table Column Should Contain",
+            "shortdoc": "Verifies that a specific column contains `expected`."
+        },
+        {
+            "args": "table_locator, expected, loglevel=INFO",
+            "name": "Table Footer Should Contain",
+            "shortdoc": "Verifies that the table footer contains `expected`."
+        },
+        {
+            "args": "table_locator, expected, loglevel=INFO",
+            "name": "Table Header Should Contain",
+            "shortdoc": "Verifies that the table header, i.e. any <th>...</th> element, contains `expected`."
+        },
+        {
+            "args": "table_locator, row, expected, loglevel=INFO",
+            "name": "Table Row Should Contain",
+            "shortdoc": "Verifies that a specific table row contains `expected`."
+        },
+        {
+            "args": "table_locator, expected, loglevel=INFO",
+            "name": "Table Should Contain",
+            "shortdoc": "Verifies that `expected` can be found somewhere in the table."
+        },
+        {
+            "args": "locator, expected, message=",
+            "name": "Textfield Should Contain",
+            "shortdoc": "Verifies text field identified by `locator` contains text `expected`."
+        },
+        {
+            "args": "locator, expected, message=",
+            "name": "Textfield Value Should Be",
+            "shortdoc": "Verifies the value in text field identified by `locator` is exactly `expected`."
+        },
+        {
+            "args": "title",
+            "name": "Title Should Be",
+            "shortdoc": "Verifies that current page title equals `title`."
+        },
+        {
+            "args": "locator",
+            "name": "Unselect Checkbox",
+            "shortdoc": "Removes selection of checkbox identified by `locator`."
+        },
+        {
+            "args": "",
+            "name": "Unselect Frame",
+            "shortdoc": "Sets the top frame as the current frame."
+        },
+        {
+            "args": "locator, *values",
+            "name": "Unselect From List",
+            "shortdoc": "Unselects given values from list identified by locator."
+        },
+        {
+            "args": "condition, timeout=None, error=None",
+            "name": "Wait For Condition",
+            "shortdoc": "Waits until the given `condition` is true or `timeout` expires."
+        },
+        {
+            "args": "locator, timeout=None",
+            "name": "Wait For Flex Element",
+            "shortdoc": "Waits until an element is found by `locator` or `timeout` expires."
+        },
+        {
+            "args": "text, timeout=None, error=None",
+            "name": "Wait Until Page Contains",
+            "shortdoc": "Waits until `text` appears on current page."
+        },
+        {
+            "args": "locator, timeout=None, error=None",
+            "name": "Wait Until Page Contains Element",
+            "shortdoc": "Waits until element specified with `locator` appears on current page."
+        },
+        {
+            "args": "timeout=None",
+            "name": "Wait Until Page Loaded",
+            "shortdoc": "Waits for a page load to happen."
+        },
+        {
+            "args": "xpath, expected_xpath_count, message=, loglevel=INFO",
+            "name": "Xpath Should Match X Times",
+            "shortdoc": "Verifies that the page contains the given number of elements located by the given `xpath`."
+        }
+    ]
+}

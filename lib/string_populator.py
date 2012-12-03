@@ -1,3 +1,6 @@
+import sublime
+
+from robot.api import TestCaseFile
 from robot.parsing.populators import FromFilePopulator
 
 class FromStringPopulator(FromFilePopulator):
@@ -13,3 +16,10 @@ class FromStringPopulator(FromFilePopulator):
 
     def _open(self, path):
         return self
+
+def populate_testcase_file(view):
+    regions = view.split_by_newlines(sublime.Region(0, view.size()))
+    lines = [view.substr(region).encode('ascii', 'replace') + '\n' for region in regions]
+    test_case_file = TestCaseFile(source=view.file_name())
+    FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
+    return test_case_file

@@ -1,25 +1,105 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/String.html?r=2.7.5",
     "keywords": [
-		"Fetch From Left",
-		"Fetch From Right",
-		"Generate Random String",
-		"Get Line",
-		"Get Line Count",
-		"Get Lines Containing String",
-		"Get Lines Matching Pattern",
-		"Get Lines Matching Regexp",
-		"Get Substring",
-		"Replace String",
-		"Replace String Using Regexp",
-		"Should Be Lowercase",
-		"Should Be String",
-		"Should Be Titlecase",
-		"Should Be Uppercase",
-		"Should Not Be String",
-		"Split String",
-		"Split String From Right",
-		"Split String To Characters",
-		"Split To Lines"
+        {
+            "args": "string, marker",
+            "name": "Fetch From Left",
+            "shortdoc": "Returns contents of the `string` before the first occurrence of `marker`."
+        },
+        {
+            "args": "string, marker",
+            "name": "Fetch From Right",
+            "shortdoc": "Returns contents of the `string` after the last occurrence of `marker`."
+        },
+        {
+            "args": "length=8, chars=[LETTERS][NUMBERS]",
+            "name": "Generate Random String",
+            "shortdoc": "Generates a string with a desired `length` from the given `chars`."
+        },
+        {
+            "args": "string, line_number",
+            "name": "Get Line",
+            "shortdoc": "Returns the specified line from the given `string`."
+        },
+        {
+            "args": "string",
+            "name": "Get Line Count",
+            "shortdoc": "Returns and logs the number of lines in the given `string`."
+        },
+        {
+            "args": "string, pattern, case_insensitive=False",
+            "name": "Get Lines Containing String",
+            "shortdoc": "Returns lines of the given `string` that contain the `pattern`."
+        },
+        {
+            "args": "string, pattern, case_insensitive=False",
+            "name": "Get Lines Matching Pattern",
+            "shortdoc": "Returns lines of the given `string` that match the `pattern`."
+        },
+        {
+            "args": "string, pattern",
+            "name": "Get Lines Matching Regexp",
+            "shortdoc": "Returns lines of the given `string` that match the regexp `pattern`."
+        },
+        {
+            "args": "string, start, end=None",
+            "name": "Get Substring",
+            "shortdoc": "Returns a substring from `start` index to `end` index."
+        },
+        {
+            "args": "string, search_for, replace_with, count=-1",
+            "name": "Replace String",
+            "shortdoc": "Replaces `search_for` in the given `string` with `replace_with`."
+        },
+        {
+            "args": "string, pattern, replace_with, count=-1",
+            "name": "Replace String Using Regexp",
+            "shortdoc": "Replaces `pattern` in the given `string` with `replace_with`."
+        },
+        {
+            "args": "string, msg=None",
+            "name": "Should Be Lowercase",
+            "shortdoc": "Fails if the given `string` is not in lowercase."
+        },
+        {
+            "args": "item, msg=None",
+            "name": "Should Be String",
+            "shortdoc": "Fails if the given `item` is not a string."
+        },
+        {
+            "args": "string, msg=None",
+            "name": "Should Be Titlecase",
+            "shortdoc": "Fails if given `string` is not title."
+        },
+        {
+            "args": "string, msg=None",
+            "name": "Should Be Uppercase",
+            "shortdoc": "Fails if the given `string` is not in uppercase."
+        },
+        {
+            "args": "item, msg=None",
+            "name": "Should Not Be String",
+            "shortdoc": "Fails if the given `item` is a string."
+        },
+        {
+            "args": "string, separator=None, max_split=-1",
+            "name": "Split String",
+            "shortdoc": "Splits the `string` using `separator` as a delimiter string."
+        },
+        {
+            "args": "string, separator=None, max_split=-1",
+            "name": "Split String From Right",
+            "shortdoc": "Splits the `string` using `separator` starting from right."
+        },
+        {
+            "args": "string",
+            "name": "Split String To Characters",
+            "shortdoc": "Splits the string` to characters."
+        },
+        {
+            "args": "string, start=0, end=None",
+            "name": "Split To Lines",
+            "shortdoc": "Converts the `string` into a list of lines."
+        }
     ]
 }

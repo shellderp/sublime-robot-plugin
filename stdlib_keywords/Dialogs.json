@@ -1,9 +1,25 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/Dialogs.html?r=2.7.5",
     "keywords": [
-        "Execute Manual Step",
-        "Get Selection From User",
-        "Get Value From User",
-        "Pause Execution"
+        {
+            "args": "message, default_error=",
+            "name": "Execute Manual Step",
+            "shortdoc": "Pauses test execution until user sets the keyword status."
+        },
+        {
+            "args": "message, *values",
+            "name": "Get Selection From User",
+            "shortdoc": "Pauses test execution and asks user to select a value."
+        },
+        {
+            "args": "message, default_value=",
+            "name": "Get Value From User",
+            "shortdoc": "Pauses test execution and asks user to input a value."
+        },
+        {
+            "args": "message=Test execution paused. Press OK to continue.",
+            "name": "Pause Execution",
+            "shortdoc": "Pauses test execution until user clicks `Ok` button."
+        }
     ]
 }

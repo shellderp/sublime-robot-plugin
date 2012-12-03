@@ -1,42 +1,190 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/Collections.html?r=2.7.5",
     "keywords": [
-        "Append To List",
-        "Combine Lists",
-        "Convert To List",
-        "Copy Dictionary",
-        "Copy List",
-        "Count Values In List",
-        "Create Dictionary",
-        "Dictionaries Should Be Equal",
-        "Dictionary Should Contain Key",
-        "Dictionary Should Contain Sub Dictionary",
-        "Dictionary Should Contain Value",
-        "Dictionary Should Not Contain Key",
-        "Dictionary Should Not Contain Value",
-        "Get Dictionary Items",
-        "Get Dictionary Keys",
-        "Get Dictionary Values",
-        "Get From Dictionary",
-        "Get From List",
-        "Get Index From List",
-        "Get Slice From List",
-        "Insert Into List",
-        "Keep In Dictionary",
-        "List Should Contain Sub List",
-        "List Should Contain Value",
-        "List Should Not Contain Duplicates",
-        "List Should Not Contain Value",
-        "Lists Should Be Equal",
-        "Log Dictionary",
-        "Log List",
-        "Remove Duplicates",
-        "Remove From Dictionary",
-        "Remove From List",
-        "Remove Values From List",
-        "Reverse List",
-        "Set List Value",
-        "Set To Dictionary",
-        "Sort List"
+        {
+            "args": "list_, *values",
+            "name": "Append To List",
+            "shortdoc": "Adds `values` to the end of `list`."
+        },
+        {
+            "args": "*lists",
+            "name": "Combine Lists",
+            "shortdoc": "Combines the given `lists` together and returns the result."
+        },
+        {
+            "args": "item",
+            "name": "Convert To List",
+            "shortdoc": "Converts the given `item` to a list."
+        },
+        {
+            "args": "dictionary",
+            "name": "Copy Dictionary",
+            "shortdoc": "Returns a copy of the given dictionary."
+        },
+        {
+            "args": "list_",
+            "name": "Copy List",
+            "shortdoc": "Returns a copy of the given list."
+        },
+        {
+            "args": "list_, value, start=0, end=None",
+            "name": "Count Values In List",
+            "shortdoc": "Returns the number of occurrences of the given `value` in `list`."
+        },
+        {
+            "args": "*key_value_pairs",
+            "name": "Create Dictionary",
+            "shortdoc": "Creates and returns a dictionary from the given `key_value_pairs`."
+        },
+        {
+            "args": "dict1, dict2, msg=None, values=True",
+            "name": "Dictionaries Should Be Equal",
+            "shortdoc": "Fails if the given dictionaries are not equal."
+        },
+        {
+            "args": "dictionary, key, msg=None",
+            "name": "Dictionary Should Contain Key",
+            "shortdoc": "Fails if `key` is not found from `dictionary`."
+        },
+        {
+            "args": "dict1, dict2, msg=None, values=True",
+            "name": "Dictionary Should Contain Sub Dictionary",
+            "shortdoc": "Fails unless all items in `dict2` are found from `dict1`."
+        },
+        {
+            "args": "dictionary, value, msg=None",
+            "name": "Dictionary Should Contain Value",
+            "shortdoc": "Fails if `value` is not found from `dictionary`."
+        },
+        {
+            "args": "dictionary, key, msg=None",
+            "name": "Dictionary Should Not Contain Key",
+            "shortdoc": "Fails if `key` is found from `dictionary`."
+        },
+        {
+            "args": "dictionary, value, msg=None",
+            "name": "Dictionary Should Not Contain Value",
+            "shortdoc": "Fails if `value` is found from `dictionary`."
+        },
+        {
+            "args": "dictionary",
+            "name": "Get Dictionary Items",
+            "shortdoc": "Returns items of the given `dictionary`."
+        },
+        {
+            "args": "dictionary",
+            "name": "Get Dictionary Keys",
+            "shortdoc": "Returns `keys` of the given `dictionary`."
+        },
+        {
+            "args": "dictionary",
+            "name": "Get Dictionary Values",
+            "shortdoc": "Returns values of the given dictionary."
+        },
+        {
+            "args": "dictionary, key",
+            "name": "Get From Dictionary",
+            "shortdoc": "Returns a value from the given `dictionary` based on the given `key`."
+        },
+        {
+            "args": "list_, index",
+            "name": "Get From List",
+            "shortdoc": "Returns the value specified with an `index` from `list`."
+        },
+        {
+            "args": "list_, value, start=0, end=None",
+            "name": "Get Index From List",
+            "shortdoc": "Returns the index of the first occurrence of the `value` on the list."
+        },
+        {
+            "args": "list_, start=0, end=None",
+            "name": "Get Slice From List",
+            "shortdoc": "Returns a slice of the given list between `start` and `end` indexes."
+        },
+        {
+            "args": "list_, index, value",
+            "name": "Insert Into List",
+            "shortdoc": "Inserts `value` into `list` to the position specified with `index`."
+        },
+        {
+            "args": "dictionary, *keys",
+            "name": "Keep In Dictionary",
+            "shortdoc": "Keeps the given `keys` in the `dictionary` and removes all other."
+        },
+        {
+            "args": "list1, list2, msg=None, values=True",
+            "name": "List Should Contain Sub List",
+            "shortdoc": "Fails if not all of the elements in `list2` are found in `list1`."
+        },
+        {
+            "args": "list_, value, msg=None",
+            "name": "List Should Contain Value",
+            "shortdoc": "Fails if the `value` is not found from `list`."
+        },
+        {
+            "args": "list_, msg=None",
+            "name": "List Should Not Contain Duplicates",
+            "shortdoc": "Fails if any element in the `list` is found from it more than once."
+        },
+        {
+            "args": "list_, value, msg=None",
+            "name": "List Should Not Contain Value",
+            "shortdoc": "Fails if the `value` is not found from `list`."
+        },
+        {
+            "args": "list1, list2, msg=None, values=True, names=None",
+            "name": "Lists Should Be Equal",
+            "shortdoc": "Fails if given lists are unequal."
+        },
+        {
+            "args": "dictionary, level=INFO",
+            "name": "Log Dictionary",
+            "shortdoc": "Logs the size and contents of the `dictionary` using given `level`."
+        },
+        {
+            "args": "list_, level=INFO",
+            "name": "Log List",
+            "shortdoc": "Logs the length and contents of the `list` using given `level`."
+        },
+        {
+            "args": "list_",
+            "name": "Remove Duplicates",
+            "shortdoc": "Returns a list without duplicates based on the given `list`."
+        },
+        {
+            "args": "dictionary, *keys",
+            "name": "Remove From Dictionary",
+            "shortdoc": "Removes the given `keys` from the `dictionary`."
+        },
+        {
+            "args": "list_, index",
+            "name": "Remove From List",
+            "shortdoc": "Removes and returns the value specified with an `index` from `list`."
+        },
+        {
+            "args": "list_, *values",
+            "name": "Remove Values From List",
+            "shortdoc": "Removes all occurences of given `values` from `list`."
+        },
+        {
+            "args": "list_",
+            "name": "Reverse List",
+            "shortdoc": "Reverses the given list in place."
+        },
+        {
+            "args": "list_, index, value",
+            "name": "Set List Value",
+            "shortdoc": "Sets the value of `list` specified by `index` to the given `value`."
+        },
+        {
+            "args": "dictionary, *key_value_pairs",
+            "name": "Set To Dictionary",
+            "shortdoc": "Adds the given `key_value_pairs` to the `dictionary`."
+        },
+        {
+            "args": "list_",
+            "name": "Sort List",
+            "shortdoc": "Sorts the given list in place."
+        }
     ]
 }

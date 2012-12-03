@@ -1,11 +1,35 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/Screenshot.html?r=2.7.5",
     "keywords": [
-		"Log Screenshot",
-		"Save Screenshot",
-		"Save Screenshot To",
-		"Set Screenshot Directory",
-		"Take Screenshot",
-		"Take Screenshot Without Embedding"
+        {
+            "args": "basename=screenshot, directory=None, width=100%",
+            "name": "Log Screenshot",
+            "shortdoc": "*DEPRECATED* Use `Take Screenshot` or `Take Screenshot Without Embedding` instead."
+        },
+        {
+            "args": "basename=screenshot, directory=None",
+            "name": "Save Screenshot",
+            "shortdoc": "*DEPRECATED* Use `Take Screenshot` or `Take Screenshot Without Embedding` instead."
+        },
+        {
+            "args": "path",
+            "name": "Save Screenshot To",
+            "shortdoc": "*DEPRECATED* Use `Take Screenshot` or `Take Screenshot Without Embedding` instead."
+        },
+        {
+            "args": "path",
+            "name": "Set Screenshot Directory",
+            "shortdoc": "Sets the directory where screenshots are saved."
+        },
+        {
+            "args": "name=screenshot, width=800px",
+            "name": "Take Screenshot",
+            "shortdoc": "Takes a screenshot in JPEG format and embeds it into the log file."
+        },
+        {
+            "args": "name=screenshot",
+            "name": "Take Screenshot Without Embedding",
+            "shortdoc": "Takes a screenshot and links it from the log file."
+        }
     ]
 }

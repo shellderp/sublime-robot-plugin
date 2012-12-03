@@ -1,92 +1,440 @@
 {
     "url": "http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.5",
     "keywords": [
-        "Call Method",
-        "Catenate",
-        "Comment",
-        "Convert To Binary",
-        "Convert To Boolean",
-        "Convert To Hex",
-        "Convert To Integer",
-        "Convert To Number",
-        "Convert To Octal",
-        "Convert To String",
-        "Create List",
-        "Evaluate",
-        "Exit For Loop",
-        "Fail",
-        "Fatal Error",
-        "Get Count",
-        "Get Length",
-        "Get Library Instance",
-        "Get Time",
-        "Get Variable Value",
-        "Get Variables",
-        "Import Library",
-        "Import Resource",
-        "Import Variables",
-        "Keyword Should Exist",
-        "Length Should Be",
-        "Log",
-        "Log Many",
-        "Log Variables",
-        "No Operation",
-        "Regexp Escape",
-        "Remove Tags",
-        "Repeat Keyword",
-        "Replace Variables",
-        "Run Keyword",
-        "Run Keyword And Continue On Failure",
-        "Run Keyword And Expect Error",
-        "Run Keyword And Ignore Error",
-        "Run Keyword If",
-        "Run Keyword If All Critical Tests Passed",
-        "Run Keyword If All Tests Passed",
-        "Run Keyword If Any Critical Tests Failed",
-        "Run Keyword If Any Tests Failed",
-        "Run Keyword If Test Failed",
-        "Run Keyword If Test Passed",
-        "Run Keyword If Timeout Occurred",
-        "Run Keyword Unless",
-        "Run Keywords",
-        "Set Global Variable",
-        "Set Library Search Order",
-        "Set Log Level",
-        "Set Suite Documentation",
-        "Set Suite Metadata",
-        "Set Suite Variable",
-        "Set Tags",
-        "Set Test Documentation",
-        "Set Test Message",
-        "Set Test Variable",
-        "Set Variable",
-        "Set Variable If",
-        "Should Be Empty",
-        "Should Be Equal",
-        "Should Be Equal As Integers",
-        "Should Be Equal As Numbers",
-        "Should Be Equal As Strings",
-        "Should Be True",
-        "Should Contain",
-        "Should Contain X Times",
-        "Should End With",
-        "Should Match",
-        "Should Match Regexp",
-        "Should Not Be Empty",
-        "Should Not Be Equal",
-        "Should Not Be Equal As Integers",
-        "Should Not Be Equal As Numbers",
-        "Should Not Be Equal As Strings",
-        "Should Not Be True",
-        "Should Not Contain",
-        "Should Not End With",
-        "Should Not Match",
-        "Should Not Match Regexp",
-        "Should Not Start With",
-        "Should Start With",
-        "Sleep",
-        "Variable Should Exist",
-        "Variable Should Not Exist",
-        "Wait Until Keyword Succeeds"
+        {
+            "args": "object, method_name, *args",
+            "name": "Call Method",
+            "shortdoc": "Calls the named method of the given object with the provided arguments."
+        },
+        {
+            "args": "*items",
+            "name": "Catenate",
+            "shortdoc": "Catenates the given items together and returns the resulted string."
+        },
+        {
+            "args": "*messages",
+            "name": "Comment",
+            "shortdoc": "Displays the given messages in the log file as keyword arguments."
+        },
+        {
+            "args": "item, base=None, prefix=None, length=None",
+            "name": "Convert To Binary",
+            "shortdoc": "Converts the given item to a binary string."
+        },
+        {
+            "args": "item",
+            "name": "Convert To Boolean",
+            "shortdoc": "Converts the given item to Boolean true or false."
+        },
+        {
+            "args": "item, base=None, prefix=None, length=None, lowercase=False",
+            "name": "Convert To Hex",
+            "shortdoc": "Converts the given item to a hexadecimal string."
+        },
+        {
+            "args": "item, base=None",
+            "name": "Convert To Integer",
+            "shortdoc": "Converts the given item to an integer number."
+        },
+        {
+            "args": "item, precision=None",
+            "name": "Convert To Number",
+            "shortdoc": "Converts the given item to a floating point number."
+        },
+        {
+            "args": "item, base=None, prefix=None, length=None",
+            "name": "Convert To Octal",
+            "shortdoc": "Converts the given item to an octal string."
+        },
+        {
+            "args": "item",
+            "name": "Convert To String",
+            "shortdoc": "Converts the given item to a Unicode string."
+        },
+        {
+            "args": "*items",
+            "name": "Create List",
+            "shortdoc": "Returns a list containing given items."
+        },
+        {
+            "args": "expression, modules=None",
+            "name": "Evaluate",
+            "shortdoc": "Evaluates the given expression in Python and returns the results."
+        },
+        {
+            "args": "",
+            "name": "Exit For Loop",
+            "shortdoc": "Immediately stops executing the enclosing for loop."
+        },
+        {
+            "args": "msg=None, *tags",
+            "name": "Fail",
+            "shortdoc": "Fails the test with the given message and optionally alters its tags."
+        },
+        {
+            "args": "msg=None",
+            "name": "Fatal Error",
+            "shortdoc": "Stops the whole test execution."
+        },
+        {
+            "args": "item1, item2",
+            "name": "Get Count",
+            "shortdoc": "Returns and logs how many times `item2` is found from `item1`."
+        },
+        {
+            "args": "item",
+            "name": "Get Length",
+            "shortdoc": "Returns and logs the length of the given item."
+        },
+        {
+            "args": "name",
+            "name": "Get Library Instance",
+            "shortdoc": "Returns the currently active instance of the specified test library."
+        },
+        {
+            "args": "format=timestamp, time_=NOW",
+            "name": "Get Time",
+            "shortdoc": "Returns the given time in the requested format."
+        },
+        {
+            "args": "name, default=None",
+            "name": "Get Variable Value",
+            "shortdoc": "Returns variable value or `default` if the variable does not exist."
+        },
+        {
+            "args": "",
+            "name": "Get Variables",
+            "shortdoc": "Returns a dictionary containing all variables in the current scope."
+        },
+        {
+            "args": "name, *args",
+            "name": "Import Library",
+            "shortdoc": "Imports a library with the given name and optional arguments."
+        },
+        {
+            "args": "path",
+            "name": "Import Resource",
+            "shortdoc": "Imports a resource file with the given path."
+        },
+        {
+            "args": "path, *args",
+            "name": "Import Variables",
+            "shortdoc": "Imports a variable file with the given path and optional arguments."
+        },
+        {
+            "args": "name, msg=None",
+            "name": "Keyword Should Exist",
+            "shortdoc": "Fails unless the given keyword exists in the current scope."
+        },
+        {
+            "args": "item, length, msg=None",
+            "name": "Length Should Be",
+            "shortdoc": "Verifies that the length of the given item is correct."
+        },
+        {
+            "args": "message, level=INFO",
+            "name": "Log",
+            "shortdoc": "Logs the given message with the given level."
+        },
+        {
+            "args": "*messages",
+            "name": "Log Many",
+            "shortdoc": "Logs the given messages as separate entries with the INFO level."
+        },
+        {
+            "args": "level=INFO",
+            "name": "Log Variables",
+            "shortdoc": "Logs all variables in the current scope with given log level."
+        },
+        {
+            "args": "",
+            "name": "No Operation",
+            "shortdoc": "Does absolutely nothing."
+        },
+        {
+            "args": "*patterns",
+            "name": "Regexp Escape",
+            "shortdoc": "Returns each argument string escaped for use as a regular expression."
+        },
+        {
+            "args": "*tags",
+            "name": "Remove Tags",
+            "shortdoc": "Removes given `tags` from the current test or all tests in a suite."
+        },
+        {
+            "args": "times, name, *args",
+            "name": "Repeat Keyword",
+            "shortdoc": "Executes the specified keyword multiple times."
+        },
+        {
+            "args": "text",
+            "name": "Replace Variables",
+            "shortdoc": "Replaces variables in the given text with their current values."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword",
+            "shortdoc": "Executes the given keyword with the given arguments."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword And Continue On Failure",
+            "shortdoc": "Runs the keyword and continues execution even if a failure occurs."
+        },
+        {
+            "args": "expected_error, name, *args",
+            "name": "Run Keyword And Expect Error",
+            "shortdoc": "Runs the keyword and checks that the expected error occurred."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword And Ignore Error",
+            "shortdoc": "Runs the given keyword with the given arguments and ignores possible error."
+        },
+        {
+            "args": "condition, name, *args",
+            "name": "Run Keyword If",
+            "shortdoc": "Runs the given keyword with the given arguments, if `condition` is true."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If All Critical Tests Passed",
+            "shortdoc": "Runs the given keyword with the given arguments, if all critical tests passed."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If All Tests Passed",
+            "shortdoc": "Runs the given keyword with the given arguments, if all tests passed."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If Any Critical Tests Failed",
+            "shortdoc": "Runs the given keyword with the given arguments, if any critical tests failed."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If Any Tests Failed",
+            "shortdoc": "Runs the given keyword with the given arguments, if one or more tests failed."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If Test Failed",
+            "shortdoc": "Runs the given keyword with the given arguments, if the test failed."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If Test Passed",
+            "shortdoc": "Runs the given keyword with the given arguments, if the test passed."
+        },
+        {
+            "args": "name, *args",
+            "name": "Run Keyword If Timeout Occurred",
+            "shortdoc": "Runs the given keyword if either a test or a keyword timeout has occurred."
+        },
+        {
+            "args": "condition, name, *args",
+            "name": "Run Keyword Unless",
+            "shortdoc": "Runs the given keyword with the given arguments, if `condition` is false."
+        },
+        {
+            "args": "*names",
+            "name": "Run Keywords",
+            "shortdoc": "Executes all the given keywords in a sequence without arguments."
+        },
+        {
+            "args": "name, *values",
+            "name": "Set Global Variable",
+            "shortdoc": "Makes a variable available globally in all tests and suites."
+        },
+        {
+            "args": "*libraries",
+            "name": "Set Library Search Order",
+            "shortdoc": "Sets the resolution order to use when a name matches multiple keywords."
+        },
+        {
+            "args": "level",
+            "name": "Set Log Level",
+            "shortdoc": "Sets the log threshold to the specified level and returns the old level."
+        },
+        {
+            "args": "doc",
+            "name": "Set Suite Documentation",
+            "shortdoc": "Sets documentation for the current suite."
+        },
+        {
+            "args": "name, value",
+            "name": "Set Suite Metadata",
+            "shortdoc": "Sets metadata for the current suite."
+        },
+        {
+            "args": "name, *values",
+            "name": "Set Suite Variable",
+            "shortdoc": "Makes a variable available everywhere within the scope of the current suite."
+        },
+        {
+            "args": "*tags",
+            "name": "Set Tags",
+            "shortdoc": "Adds given `tags` for the current test or all tests in a suite."
+        },
+        {
+            "args": "doc",
+            "name": "Set Test Documentation",
+            "shortdoc": "Sets documentation for for the current test."
+        },
+        {
+            "args": "message",
+            "name": "Set Test Message",
+            "shortdoc": "Sets message for for the current test."
+        },
+        {
+            "args": "name, *values",
+            "name": "Set Test Variable",
+            "shortdoc": "Makes a variable available everywhere within the scope of the current test."
+        },
+        {
+            "args": "*values",
+            "name": "Set Variable",
+            "shortdoc": "Returns the given values which can then be assigned to a variables."
+        },
+        {
+            "args": "condition, *values",
+            "name": "Set Variable If",
+            "shortdoc": "Sets variable based on the given condition."
+        },
+        {
+            "args": "item, msg=None",
+            "name": "Should Be Empty",
+            "shortdoc": "Verifies that the given item is empty."
+        },
+        {
+            "args": "first, second, msg=None, values=True",
+            "name": "Should Be Equal",
+            "shortdoc": "Fails if the given objects are unequal."
+        },
+        {
+            "args": "first, second, msg=None, values=True, base=None",
+            "name": "Should Be Equal As Integers",
+            "shortdoc": "Fails if objects are unequal after converting them to integers."
+        },
+        {
+            "args": "first, second, msg=None, values=True, precision=6",
+            "name": "Should Be Equal As Numbers",
+            "shortdoc": "Fails if objects are unequal after converting them to real numbers."
+        },
+        {
+            "args": "first, second, msg=None, values=True",
+            "name": "Should Be Equal As Strings",
+            "shortdoc": "Fails if objects are unequal after converting them to strings."
+        },
+        {
+            "args": "condition, msg=None",
+            "name": "Should Be True",
+            "shortdoc": "Fails if the given condition is not true."
+        },
+        {
+            "args": "item1, item2, msg=None, values=True",
+            "name": "Should Contain",
+            "shortdoc": "Fails if `item1` does not contain `item2` one or more times."
+        },
+        {
+            "args": "item1, item2, count, msg=None",
+            "name": "Should Contain X Times",
+            "shortdoc": "Fails if `item1` does not contain `item2` `count` times."
+        },
+        {
+            "args": "str1, str2, msg=None, values=True",
+            "name": "Should End With",
+            "shortdoc": "Fails if the string `str1` does not end with the string `str2`."
+        },
+        {
+            "args": "string, pattern, msg=None, values=True",
+            "name": "Should Match",
+            "shortdoc": "Fails unless the given `string` matches the given `pattern`."
+        },
+        {
+            "args": "string, pattern, msg=None, values=True",
+            "name": "Should Match Regexp",
+            "shortdoc": "Fails if `string` does not match `pattern` as a regular expression."
+        },
+        {
+            "args": "item, msg=None",
+            "name": "Should Not Be Empty",
+            "shortdoc": "Verifies that the given item is not empty."
+        },
+        {
+            "args": "first, second, msg=None, values=True",
+            "name": "Should Not Be Equal",
+            "shortdoc": "Fails if the given objects are equal."
+        },
+        {
+            "args": "first, second, msg=None, values=True, base=None",
+            "name": "Should Not Be Equal As Integers",
+            "shortdoc": "Fails if objects are equal after converting them to integers."
+        },
+        {
+            "args": "first, second, msg=None, values=True, precision=6",
+            "name": "Should Not Be Equal As Numbers",
+            "shortdoc": "Fails if objects are equal after converting them to real numbers."
+        },
+        {
+            "args": "first, second, msg=None, values=True",
+            "name": "Should Not Be Equal As Strings",
+            "shortdoc": "Fails if objects are equal after converting them to strings."
+        },
+        {
+            "args": "condition, msg=None",
+            "name": "Should Not Be True",
+            "shortdoc": "Fails if the given condition is true."
+        },
+        {
+            "args": "item1, item2, msg=None, values=True",
+            "name": "Should Not Contain",
+            "shortdoc": "Fails if `item1` contains `item2` one or more times."
+        },
+        {
+            "args": "str1, str2, msg=None, values=True",
+            "name": "Should Not End With",
+            "shortdoc": "Fails if the string `str1` ends with the string `str2`."
+        },
+        {
+            "args": "string, pattern, msg=None, values=True",
+            "name": "Should Not Match",
+            "shortdoc": "Fails if the given `string` matches the given `pattern`."
+        },
+        {
+            "args": "string, pattern, msg=None, values=True",
+            "name": "Should Not Match Regexp",
+            "shortdoc": "Fails if `string` matches `pattern` as a regular expression."
+        },
+        {
+            "args": "str1, str2, msg=None, values=True",
+            "name": "Should Not Start With",
+            "shortdoc": "Fails if the string `str1` starts with the string `str2`."
+        },
+        {
+            "args": "str1, str2, msg=None, values=True",
+            "name": "Should Start With",
+            "shortdoc": "Fails if the string `str1` does not start with the string `str2`."
+        },
+        {
+            "args": "time_, reason=None",
+            "name": "Sleep",
+            "shortdoc": "Pauses the test executed for the given time."
+        },
+        {
+            "args": "name, msg=None",
+            "name": "Variable Should Exist",
+            "shortdoc": "Fails unless the given variable exists within the current scope."
+        },
+        {
+            "args": "name, msg=None",
+            "name": "Variable Should Not Exist",
+            "shortdoc": "Fails if the given variable exists within the current scope."
+        },
+        {
+            "args": "timeout, retry_interval, name, *args",
+            "name": "Wait Until Keyword Succeeds",
+            "shortdoc": "Waits until the specified keyword succeeds or the given timeout expires."
+        }
     ]
 }
