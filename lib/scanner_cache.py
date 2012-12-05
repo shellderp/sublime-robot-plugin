@@ -12,8 +12,8 @@ class ScannerCache:
     def compute_hash(self, file_path):
         md5 = hashlib.md5()
         with open(file_path, 'rb') as f:
-            for chunk in iter(lambda: f.read(8192), b''):
-                 md5.update(chunk)
+            contents = f.read()
+            md5.update(contents)
         return md5.digest()
 
     def get_cached_data(self, file_path):

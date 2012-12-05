@@ -42,43 +42,49 @@ class WrappedKeyword:
         return True
 
 
-def __scan_file(view, keywords, data_file, import_history, start_time, start_path):
-    if time() - start_time > SCAN_TIMEOUT:
-        sublime.set_timeout(lambda: view.set_status('scan_error', 'scanning timeout exceeded'), 0)
-        sublime.set_timeout(lambda: view.erase_status('scan_error'), 5000)
-        return
-    if data_file.source in import_history:
-        # prevent circular import loops
-        return
-    import_history = copy(import_history)
-    import_history.append(data_file.source)
+class Scanner(object):
 
-    for setting in data_file.imports:
-        if hasattr(setting, 'type'):
-            if setting.type == 'Resource':
-                resource_path = os.path.normpath(os.path.join(setting.directory, setting.name))
-                cached = scanner_cache.get_cached_data(resource_path)
-                if cached:
-                    __scan_file(view, keywords, cached, import_history, start_time, start_path)
-                else:
-                    try:
-                        resource_data = ResourceFile(source=resource_path).populate()
-                        scanner_cache.put_data(resource_path, resource_data)
-                        __scan_file(view, keywords, resource_data, import_history, start_time, start_path)
-                    except DataError as de:
-                        print 'error reading resource:', resource_path
+    def __init__(self, view):
+        self.view = view
 
-    for keyword in data_file.keyword_table:
-        lower_name = keyword.name.lower()
-        if not keywords.has_key(lower_name):
-            keywords[lower_name] = []
-        wrapped = WrappedKeyword(data_file, keyword, os.path.relpath(keyword.source, start_path))
-        if wrapped in keywords[lower_name]:
-            continue
-        keywords[lower_name].append(wrapped)
+    def scan_file(self, data_file):
+        self.start_time = time()
+        self.start_path = data_file.directory
+        keywords = {}
+        self.__scan_file(keywords, data_file, deque())
+        return keywords
 
+    def __scan_file(self, keywords, data_file, import_history):
+        if time() - self.start_time > SCAN_TIMEOUT:
+            sublime.set_timeout(lambda: self.view.set_status('scan_error', 'scanning timeout exceeded'), 0)
+            sublime.set_timeout(lambda: self.view.erase_status('scan_error'), 5000)
+            return
+        if data_file.source in import_history:
+            # prevent circular import loops
+            return
+        import_history = copy(import_history)
+        import_history.append(data_file.source)
 
-def scan_file(view, data_file):
-    keywords = {}
-    __scan_file(view, keywords, data_file, deque(), time(), data_file.directory)
-    return keywords
+        for setting in data_file.imports:
+            if hasattr(setting, 'type'):
+                if setting.type == 'Resource':
+                    resource_path = os.path.normpath(os.path.join(setting.directory, setting.name))
+                    cached = scanner_cache.get_cached_data(resource_path)
+                    if cached:
+                        self.__scan_file(keywords, cached, import_history)
+                    else:
+                        try:
+                            resource_data = ResourceFile(source=resource_path).populate()
+                            scanner_cache.put_data(resource_path, resource_data)
+                            self.__scan_file(keywords, resource_data, import_history)
+                        except DataError as de:
+                            print 'error reading resource:', resource_path
+
+        for keyword in data_file.keyword_table:
+            lower_name = keyword.name.lower()
+            if not keywords.has_key(lower_name):
+                keywords[lower_name] = []
+            wrapped = WrappedKeyword(data_file, keyword, os.path.relpath(keyword.source, self.start_path))
+            if wrapped in keywords[lower_name]:
+                continue
+            keywords[lower_name].append(wrapped)

@@ -17,7 +17,7 @@ import sublime, sublime_plugin
 
 from keyword_parse import get_keyword_at_pos
 from string_populator import populate_testcase_file
-from robot_scanner import scan_file
+from robot_scanner import Scanner
 import stdlib_keywords
 
 
@@ -54,7 +54,7 @@ class GoToKeywordThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        keywords = scan_file(self.view, self.view_file)
+        keywords = Scanner(self.view).scan_file(self.view_file)
 
         results = []
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
