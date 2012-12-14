@@ -128,7 +128,7 @@ class AutoComplete(sublime_plugin.EventListener):
     def on_query_completions(self, view, prefix, locations):
         if is_robot_format(view):
             view_file = populate_testcase_file(view)
-            keywords = scan_file(view, view_file)
+            keywords = Scanner(view).scan_file(view_file)
             lower_prefix = prefix.lower()
             user_keywords = [(kw[0].keyword.name, kw[0].keyword.name) for kw in keywords.itervalues()
                                 if kw[0].keyword.name.lower().startswith(lower_prefix)]
