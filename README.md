@@ -16,4 +16,6 @@ Features
 * alt+enter or alt+click to:
     * go to resource file at caret
     * go to user keyword at caret
+    * go to builtin keyword at caret (opens browser)
 * ctrl+space to auto complete user keywords (must start on first word of keyword since sublime will break on spaces)
+* search for keywords in all project robot files (open folders)
