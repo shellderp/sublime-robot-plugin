@@ -17,7 +17,7 @@ import sublime, sublime_plugin
 
 from keyword_parse import get_keyword_at_pos
 from string_populator import populate_testcase_file
-from robot_scanner import Scanner
+from robot_scanner import Scanner, detect_robot_regex
 import stdlib_keywords
 
 
@@ -47,14 +47,23 @@ def select_keyword_and_go(view, results):
 
 
 class GoToKeywordThread(threading.Thread):
-    def __init__(self, view, view_file, keyword):
+    def __init__(self, view, view_file, keyword, folders):
         self.view = view
         self.view_file = view_file
         self.keyword = keyword
+        self.folders = folders
         threading.Thread.__init__(self)
 
     def run(self):
-        keywords = Scanner(self.view).scan_file(self.view_file)
+        scanner = Scanner(self.view)
+        keywords = scanner.scan_file(self.view_file)
+
+        for folder in self.folders:
+            for root, dirs, files in os.walk(folder):
+                for f in files:
+                    if f.endswith('.txt') and f != '__init__.txt':
+                        path = os.path.join(root, f)
+                        scanner.scan_without_resources(path, keywords)
 
         results = []
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
@@ -103,14 +112,16 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
             return
 
         view_file = populate_testcase_file(self.view)
-        GoToKeywordThread(view, view_file, keyword).start()
+        # must be run on main thread
+        folders = view.window().folders()
+        GoToKeywordThread(view, view_file, keyword, folders).start()
 
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def autodetect(self, view):
         # file name can be None if it's a find result view that is restored on startup
         if (view.file_name() != None and view.file_name().endswith('.txt') and
-            view.find('\*+\s*(settings?|metadata|(user )?keywords?|test ?cases?|variables?)', 0, sublime.IGNORECASE) != None):
+            view.find(detect_robot_regex, 0, sublime.IGNORECASE) != None):
 
             view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
 

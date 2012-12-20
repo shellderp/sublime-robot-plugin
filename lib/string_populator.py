@@ -23,3 +23,8 @@ def populate_testcase_file(view):
     test_case_file = TestCaseFile(source=view.file_name())
     FromStringPopulator(test_case_file, lines).populate(test_case_file.source)
     return test_case_file
+
+def populate_from_lines(lines, file_path):
+    data_file = TestCaseFile(source=file_path)
+    FromStringPopulator(data_file, lines).populate(file_path)
+    return data_file
