@@ -19,3 +19,5 @@ Features
     * go to builtin keyword at caret (opens browser)
 * ctrl+space to auto complete user keywords (must start on first word of keyword since sublime will break on spaces)
 * search for keywords in all project robot files (open folders)
+* run script from Cmd+B
+* Toggle Commens with Cmd+/
