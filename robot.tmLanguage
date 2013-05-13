@@ -9,11 +9,12 @@
 	<key>fileTypes</key>
 	<array>
 		<string>txt</string>
+		<string>robot</string>
 	</array>
 	<key>keyEquivalent</key>
 	<string>^~R</string>
 	<key>name</key>
-	<string>Robot Framework .txt</string>
+	<string>Robot Framework</string>
 	<key>patterns</key>
 	<array>
 		<dict>

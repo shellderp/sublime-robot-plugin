@@ -1,10 +1,10 @@
 {
     "comment": "\n    Robot Framework syntax highlighting for txt files.\n    ", 
     "fileTypes": [
-        "txt"
+        "txt", "robot"
     ], 
     "keyEquivalent": "^~R", 
-    "name": "Robot Framework .txt", 
+    "name": "Robot Framework",
     "patterns": [
         {
             "comment": "start of a table", 
