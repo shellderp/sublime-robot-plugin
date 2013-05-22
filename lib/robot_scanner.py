@@ -61,8 +61,8 @@ class Scanner(object):
 
     def __scan_file(self, keywords, data_file, import_history):
         if time() - self.start_time > SCAN_TIMEOUT:
-            sublime.set_timeout(lambda: self.view.set_status('scan_error', 'scanning timeout exceeded'), 0)
-            sublime.set_timeout(lambda: self.view.erase_status('scan_error'), 5000)
+            sublime.set_timeout(lambda: self.view.set_status('robot_scan_error', 'Robot scanning timeout exceeded'), 0)
+            sublime.set_timeout(lambda: self.view.erase_status('robot_scan_error'), 5000)
             return
         self.scanned_files.add(data_file.source)
         if data_file.source in import_history:

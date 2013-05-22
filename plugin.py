@@ -76,8 +76,8 @@ class GoToKeywordThread(threading.Thread):
         results.extend(stdlib_keywords.search_keywords(self.keyword))
 
         if not results:
-            sublime.set_timeout(lambda: self.view.set_status('scan_error', 'No robot keyword results'), 0)
-            sublime.set_timeout(lambda: self.view.erase_status('scan_error'), 3000)
+            sublime.set_timeout(lambda: self.view.set_status('robot_scan_error', 'No robot keyword results'), 0)
+            sublime.set_timeout(lambda: self.view.erase_status('robot_scan_error'), 3000)
         else:
             sublime.set_timeout(lambda: select_keyword_and_go(self.view, results), 0)
 
