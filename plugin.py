@@ -45,7 +45,6 @@ def select_keyword_and_go(view, results):
         result_strings.append(strings)
     view.window().show_quick_panel(result_strings, on_done)
 
-
 class GoToKeywordThread(threading.Thread):
     def __init__(self, view, view_file, keyword, folders):
         self.view = view
@@ -61,7 +60,7 @@ class GoToKeywordThread(threading.Thread):
         for folder in self.folders:
             for root, dirs, files in os.walk(folder):
                 for f in files:
-                    if f.endswith('.txt') and f != '__init__.txt':
+                    if f.endswith('.txt') or f.endswith('.robot') and f != '__init__.txt':
                         path = os.path.join(root, f)
                         scanner.scan_without_resources(path, keywords)
 
