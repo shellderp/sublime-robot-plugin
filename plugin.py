@@ -116,7 +116,7 @@ class AutoSyntaxHighlight(sublime_plugin.EventListener):
 
         # file name can be None if it's a find result view that is restored on startup
         if (view.file_name() != None and (view.file_name().endswith('.txt') or view.file_name().endswith('.robot')) and
-                view.find(detect_robot_regex, 0, sublime.IGNORECASE) != None):
+                view.find(detect_robot_regex, 0, sublime.IGNORECASE).a != -1):
             view.set_syntax_file('Packages/' + plugin_dir + '/robot.tmLanguage')
 
     def on_load(self, view):
