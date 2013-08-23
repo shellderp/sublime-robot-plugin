@@ -21,3 +21,7 @@ Features
 * search for keywords in all project robot files (open folders)
 * run script from Cmd+B
 * Toggle Comments with Cmd+/
+
+Screenshots
+-----------
+<img src="http://i.imgur.com/LrEbNr9.png" />
