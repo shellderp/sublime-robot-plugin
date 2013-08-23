@@ -45,9 +45,6 @@ def select_keyword_and_go(view, results):
         result_strings.append(strings)
     view.window().show_quick_panel(result_strings, on_done)
 
-# list of files in root folders, including only robot files
-folder_list_cache = {}
-
 class GoToKeywordThread(threading.Thread):
     def __init__(self, view, view_file, keyword, folders):
         self.view = view
@@ -60,24 +57,12 @@ class GoToKeywordThread(threading.Thread):
         scanner = Scanner(self.view)
         keywords = scanner.scan_file(self.view_file)
 
-        from time import time
-        start = time()
         for folder in self.folders:
-            if not folder in folder_list_cache:
-                folder_list_cache[folder] = []
-
-                for root, dirs, files in os.walk(folder):
-                    for f in files:
-                        if f.endswith('.txt') or f.endswith('.robot') and f != '__init__.txt':
-                            path = os.path.join(root, f)
-                            folder_list_cache[folder].append(path)
-            else:
-                print 'cached, not scanning, {0} items'.format(len(folder_list_cache[folder]))
-
-            for f in folder_list_cache[folder]:
-                scanner.scan_without_resources(f, keywords)
-
-        print "took {0} to parse dir".format(time()-start)
+            for root, dirs, files in os.walk(folder):
+                for f in files:
+                    if f.endswith('.txt') or f.endswith('.robot') and f != '__init__.txt':
+                        path = os.path.join(root, f)
+                        scanner.scan_without_resources(path, keywords)
 
         results = []
         for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
