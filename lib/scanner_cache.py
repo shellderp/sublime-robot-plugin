@@ -1,11 +1,11 @@
 import hashlib
 
-class CacheEntry:
+class CacheEntry(object):
     def __init__(self, stored_hash, data):
         self.stored_hash = stored_hash
         self.data = data
 
-class ScannerCache:
+class ScannerCache(object):
     def __init__(self):
         self.cache = {}
 

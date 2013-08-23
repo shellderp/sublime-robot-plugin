@@ -19,7 +19,7 @@ SCAN_TIMEOUT = 5 # seconds
 
 detect_robot_regex = '\*+\s*(settings?|metadata|(user )?keywords?|test ?cases?|variables?)'
 
-class WrappedKeyword:
+class WrappedKeyword(object):
     def __init__(self, data_file, keyword, file_path):
         self.keyword = keyword
         self.name = data_file.name + '.' + keyword.name
@@ -84,7 +84,7 @@ class Scanner(object):
                             scanner_cache.put_data(resource_path, resource_data, stored_hash)
                             self.__scan_file(keywords, resource_data, import_history)
                         except DataError as de:
-                            print 'error reading resource:', resource_path
+                            print('error reading resource:', resource_path)
 
         self.scan_keywords(data_file, keywords)
 

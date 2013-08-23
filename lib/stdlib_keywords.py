@@ -6,7 +6,7 @@ import urllib
 
 keywords = {}
 
-class WebKeyword:
+class WebKeyword(object):
     def __init__(self, name, url, library_name, args, doc):
         self.name = library_name + '.' + name
         self.url = url

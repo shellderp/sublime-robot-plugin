@@ -1,29 +1,19 @@
-# setup pythonpath to include lib directory before other imports
 import os, sys
-lib_path = os.path.normpath(os.path.join(os.getcwd(), 'lib'))
-if lib_path not in sys.path:
-    sys.path.append(lib_path)
-pyd_path = os.path.dirname(sys.executable)
-if pyd_path not in sys.path:
-    sys.path.append(pyd_path)
-
-# only available when the plugin is being loaded
-plugin_dir = os.getcwd()
-
 import threading
 import re
 
 import sublime, sublime_plugin
 
-from keyword_parse import get_keyword_at_pos
-from string_populator import populate_testcase_file
-from robot_scanner import Scanner, detect_robot_regex
-import stdlib_keywords
-
+from .lib.keyword_parse import get_keyword_at_pos
+#from .lib.string_populator import populate_testcase_file
+#from .lib.robot_scanner import Scanner, detect_robot_regex
+from .lib import stdlib_keywords
 
 views_to_center = {}
 
-stdlib_keywords.load(plugin_dir)
+detect_robot_regex = '\*+\s*(settings?|metadata|(user )?keywords?|test ?cases?|variables?)'
+
+#stdlib_keywords.load(plugin_dir)
 
 def is_robot_format(view):
     return view.settings().get('syntax').endswith('robot.tmLanguage')
@@ -122,11 +112,12 @@ class RobotGoToKeywordCommand(sublime_plugin.TextCommand):
 
 class AutoSyntaxHighlight(sublime_plugin.EventListener):
     def autodetect(self, view):
+        plugin_dir, _ = __name__.split('.')
+
         # file name can be None if it's a find result view that is restored on startup
         if (view.file_name() != None and (view.file_name().endswith('.txt') or view.file_name().endswith('.robot')) and
-            view.find(detect_robot_regex, 0, sublime.IGNORECASE) != None):
-
-            view.set_syntax_file(os.path.join(plugin_dir, "robot.tmLanguage"))
+                view.find(detect_robot_regex, 0, sublime.IGNORECASE) != None):
+            view.set_syntax_file('Packages/' + plugin_dir + '/robot.tmLanguage')
 
     def on_load(self, view):
         if view.id() in views_to_center:
