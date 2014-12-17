@@ -108,7 +108,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?i)^\s*(Given|And|Then|When)</string>
+			<string>(?i)^\s*(Given|And|Then|When|But)</string>
 			<key>name</key>
 			<string>keyword.control.robot</string>
 		</dict>
