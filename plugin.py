@@ -66,7 +66,7 @@ class GoToKeywordThread(threading.Thread):
                         scanner.scan_without_resources(path, keywords)
 
         results = []
-        for bdd_prefix in ['given ', 'and ', 'when ', 'then ']:
+        for bdd_prefix in ['given ', 'and ', 'when ', 'then ', 'but ']:
             if self.keyword.lower().startswith(bdd_prefix):
                 substr = self.keyword[len(bdd_prefix):]
                 results.extend(self.search_user_keywords(keywords, substr))

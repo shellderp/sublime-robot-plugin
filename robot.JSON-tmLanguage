@@ -61,7 +61,7 @@
             "name": "keyword.control.robot"
         }, 
         {
-            "match": "(?i)^\\s*(Given|And|Then|When)", 
+            "match": "(?i)^\\s*(Given|And|Then|When|But)",
             "name": "keyword.control.robot"
         }
     ], 
